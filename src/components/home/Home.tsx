@@ -29,7 +29,7 @@ function Home() {
         <Link to='contact' className='homeNavLink'>
           Contact
         </Link>
-        <a href='https://github.com/RazorzMcLazorz' target='_blank'>
+        <a href='https://github.com/RazorzMcLazorz' target='_blank' rel='noreferrer'>
           {/* @ts-ignore */}
           <i class='fab fa-github-square' style={{ fontSize: 40 }}></i>
         </a>
@@ -108,7 +108,7 @@ function Home() {
       <div id='homeRightSide'>
         <NameSignedComponent />
         <a href='/contact'>
-          <img src='/favicon.ico' />
+          <img src='/favicon.ico' alt='My Logo' />
         </a>
       </div>
     </div>
