@@ -1,0 +1,15 @@
+.energyBackground {
+  z-index: 9;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-color: transparent;
+}
+.energy {
+  width: 25px;
+  height: 25px;
+  background-color: white;
+  animation-name: energyFalling;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+}
