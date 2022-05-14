@@ -1,15 +1,21 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+// @ts-ignore
+import * as ReactDOM from 'react-dom/client'
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 import './index.scss'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 
-ReactDOM.render(
+const container = document.getElementById('root')
+
+// Create a root.
+const root = ReactDOM.createRoot(container)
+
+// Initial render: Render an element to the root.
+root.render(
   <React.StrictMode>
     <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 )
 
 // If you want your app to work offline and load faster, you can change
