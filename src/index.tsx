@@ -1,6 +1,6 @@
 import React from 'react'
 // @ts-ignore
-import * as ReactDOM from 'react-dom/client'
+import * as ReactDOMClient from 'react-dom/client'
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 import './index.scss'
 import App from './App'
@@ -9,7 +9,7 @@ import reportWebVitals from './reportWebVitals'
 const container = document.getElementById('root')
 
 // Create a root.
-const root = ReactDOM.createRoot(container)
+const root = ReactDOMClient.createRoot(container)
 
 // Initial render: Render an element to the root.
 root.render(
