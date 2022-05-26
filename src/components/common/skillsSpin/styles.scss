@@ -1,0 +1,52 @@
+#skillsSpinContainer {
+  display: grid;
+  place-items: center;
+  min-height: 500px;
+  width: 500px;
+  & > * {
+    grid-column: 1;
+    grid-row: 1;
+    .words {
+      transform: rotate(90deg);
+      background-color: rgba(0, 0, 0, 0);
+      &:hover {
+        color: #44d9e6;
+        animation: standOut 1s linear;
+        cursor: default;
+      }
+    }
+  }
+  .spin {
+    animation: spinAround 10s linear infinite;
+  }
+  .spinInner {
+    animation: spinAroundInner 10s linear infinite;
+  }
+}
+
+@keyframes spinAround {
+  from {
+    transform: rotate(0deg) translate(180px);
+  }
+  to {
+    transform: rotate(360deg) translate(180px);
+  }
+}
+
+@keyframes spinAroundInner {
+  from {
+    transform: rotate(360deg) translate(100px);
+  }
+  to {
+    transform: rotate(0deg) translate(100px);
+  }
+}
+
+@keyframes standOut {
+  from {
+    transform: scaleX(1) scaleY(1) rotate(90deg);
+  }
+  to {
+    transform: scaleX(1.5) scaleY(1.5) rotate(90deg);
+  }
+}
