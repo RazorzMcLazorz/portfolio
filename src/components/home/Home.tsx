@@ -31,7 +31,7 @@ function Home() {
         </Link>
         <a href='https://github.com/RazorzMcLazorz' target='_blank' rel='noreferrer'>
           {/* @ts-ignore */}
-          <i class='fab fa-github-square' style={{ fontSize: 40 }}></i>
+          <i className='fab fa-github-square' style={{ fontSize: 40 }}></i>
         </a>
       </div>
       <div id='homeBody'>
