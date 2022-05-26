@@ -1,0 +1,102 @@
+#projectWall {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 50px;
+  margin-left: 100px;
+  margin-right: 100px;
+  background-color: #2a2a2a;
+  color: white;
+  // animation: animationFrames linear 1s;
+  // animation-iteration-count: 1;
+  // transform-origin: -100% 0%;
+  #allProjects {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    .projectBox {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 60%;
+      min-height: 400px;
+      .projectBoxHeader {
+        display: flex;
+        justify-content: center;
+        width: 80%;
+        border-style: solid;
+        border-color: #44d9e6;
+        border-width: 0;
+        border-bottom-width: 2px;
+      }
+    }
+  }
+}
+
+.project {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 15px;
+  min-height: 300px;
+  align-items: center;
+  .project-title {
+    display: flex;
+    width: 100%;
+    margin-left: 10px;
+    font-size: 120%;
+  }
+  .project-date {
+    display: flex;
+    width: 100%;
+    font-size: 70%;
+  }
+  .project-details {
+    display: flex;
+    width: 90%;
+    .project-description {
+      display: flex;
+      width: 80%;
+    }
+    .project-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 20%;
+      .project-button-component {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50px;
+        height: 50px;
+        border-radius: 45%;
+        margin: 15px;
+        cursor: pointer;
+        text-decoration: none;
+        i {
+          font-size: 200%;
+        }
+      }
+      .project-button-component:hover {
+        background-color: #333333;
+        i {
+          background-color: #333333;
+        }
+      }
+    }
+  }
+}
+
+// @keyframes animationFrames{
+//     0% {
+//         transform:  translate(0px,0px);
+//     }
+//     .1% {
+//         transform:  translate(0px,100%);
+//     }
+//     100% {
+//         transform:  translate(0px,0px);
+//     }
+//   }
