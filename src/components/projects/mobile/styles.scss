@@ -1,0 +1,81 @@
+#mobProject {
+  width: 100vw;
+  #mobAllProjects {
+    width: 80%;
+    margin-left: 20%;
+    border-style: solid;
+    border-width: 0;
+    border-left-width: 1px;
+    border-color: #44d9e6;
+    margin-top: 10px;
+    padding-top: 5px;
+    padding-left: 15px;
+    .mobProjectBox {
+      width: 90%;
+      .mobProjectBoxHeader {
+        display: flex;
+        justify-content: center;
+        border-style: solid;
+        border-width: 0;
+        border-bottom-width: 1px;
+        border-color: #44d9e6;
+      }
+    }
+  }
+}
+
+.mobProject-box {
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+  align-items: center;
+  .mobProject-title {
+    display: flex;
+    width: 100%;
+    padding-left: 10px;
+    font-size: 120%;
+  }
+  .mobProject-date {
+    display: flex;
+    width: 100%;
+    font-size: 70%;
+  }
+  .mobProject-details {
+    display: flex;
+    width: 95%;
+    .mobProject-description {
+      display: flex;
+      width: 85%;
+    }
+    .mobProject-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 15%;
+      .mobProject-button-component {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50px;
+        height: 50px;
+        border-radius: 45%;
+        margin: 15px;
+        cursor: pointer;
+        text-decoration: none;
+        i {
+          font-size: 200%;
+        }
+      }
+      .mobProject-button-component:hover {
+        background-color: #333333;
+        i {
+          background-color: #333333;
+        }
+      }
+    }
+  }
+}
+
+.projectButtonComponentIcon {
+  background-color: transparent;
+}

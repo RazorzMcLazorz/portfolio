@@ -1,49 +1,52 @@
+import NavBar from '../common/navBar/NavBar'
+import { projectInfo } from './constants'
+import { buildProject } from './utils'
 import './styles.scss'
 
-function Home() {
+function Projects() {
   return (
     <div>
       <NavBar />
       <div id='projectWall'>
         <div id='allProjects'>
-          {this.props.bestProject && (
+          {projectInfo.bestProject && (
             <div className='projectBox'>
               <div id='bestProject' className='projectBoxHeader'>
                 Best Project
               </div>
-              {this.props.bestProject.map((project, key) => (
-                <div key={key}> {this.project(project)}</div>
+              {projectInfo.bestProject.map((project, key) => (
+                <div key={key}> {buildProject(project)}</div>
               ))}
             </div>
           )}
 
-          {this.props.currentProject && (
+          {projectInfo.currentProject && (
             <div className='projectBox'>
               <div id='currentProject' className='projectBoxHeader'>
                 Current Projects
               </div>
-              {this.props.currentProject.map((project, key) => (
-                <div key={key}> {this.project(project)}</div>
+              {projectInfo.currentProject.map((project, key) => (
+                <div key={key}> {buildProject(project)}</div>
               ))}
             </div>
           )}
 
-          {this.props.pastOtherProject && (
+          {projectInfo.pastOtherProject && (
             <div className='projectBox'>
               <div id='pastProject' className='projectBoxHeader'>
                 Past Projects
               </div>
-              {this.props.pastOtherProject.map((project, key) => (
-                <div key={key}> {this.project(project)}</div>
+              {projectInfo.pastOtherProject.map((project, key) => (
+                <div key={key}> {buildProject(project)}</div>
               ))}
             </div>
           )}
 
-          {this.props.pastPersonalProject && (
+          {projectInfo.pastPersonalProject && (
             <div className='projectBox'>
               <div className='projectBoxHeader'>Past Personal Projects</div>
-              {this.props.pastPersonalProject.map((project, key) => (
-                <div key={key}> {this.project(project)}</div>
+              {projectInfo.pastPersonalProject.map((project, key) => (
+                <div key={key}> {buildProject(project)}</div>
               ))}
             </div>
           )}
@@ -53,4 +56,4 @@ function Home() {
   )
 }
 
-export default Home
+export default Projects
