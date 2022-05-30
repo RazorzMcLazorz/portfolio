@@ -15,12 +15,12 @@ const refferences = [
   },
 ]
 
-function Refferences() {
+function Refferences({ isMobile }: { isMobile?: boolean }) {
   return (
     <div className='Refferences'>
-      <div className={'RefferenceName'}>References</div>
-      {refferences.map((refference) => (
-        <div className='RefferenceContainer'>
+      <div className={isMobile ? 'ContactInfoNameMob' : 'RefferenceName'}>References</div>
+      {refferences.map((refference, key) => (
+        <div className='RefferenceContainer' key={key + 'ref'}>
           <div>
             {refference.name} - {refference.phoneNumber}
           </div>

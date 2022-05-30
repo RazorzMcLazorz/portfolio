@@ -2,10 +2,10 @@ import GitHubIcon from '@mui/icons-material/GitHub'
 import FacebookIcon from '@mui/icons-material/Facebook'
 import LinkedInIcon from '@mui/icons-material/LinkedIn'
 
-function ContactInfo() {
+function ContactInfo({ isMobile }: { isMobile?: boolean }) {
   return (
     <div className='ContactInfo'>
-      <div className={'ContactInfoName'}>My Contact Info</div>
+      <div className={isMobile ? 'ContactInfoNameMob' : 'ContactInfoName'}>My Contact Info</div>
       <div>You can find me at these links</div>
       <div className='MYLinks'>
         <a href='https://github.com/RazorzMcLazorz' target='_blank' rel='noreferrer'>
