@@ -55,14 +55,14 @@ export const buildMobProject = (project: any) => {
               target='_blank'
               href={projectInfo.projects.link[project]}
               rel='noreferrer'>
-              <i className='fas fa-pager'></i>
+              <WebIcon className='projectButtonComponentIcon' />
             </a>
           )}
           {projectInfo.projects.dedicate[project] && (
             <a
               className='mobProject-button-component'
               href={projectInfo.projects.dedicate[project]}>
-              <i className='far fa-newspaper'></i>
+              <WebIcon className='projectButtonComponentIcon' />
             </a>
           )}
           {projectInfo.projects.github[project] && (
@@ -71,7 +71,7 @@ export const buildMobProject = (project: any) => {
               target='_blank'
               href={projectInfo.projects.github[project]}
               rel='noreferrer'>
-              <i className='fab fa-github'></i>
+              <GitHubIcon className='projectButtonComponentIcon' />
             </a>
           )}
         </div>
