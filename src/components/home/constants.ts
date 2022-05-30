@@ -41,3 +41,16 @@ export const website = {
   REST: 'https://restfulapi.net/',
   HTTP: 'https://developer.mozilla.org/en-US/docs/Web/HTTP',
 }
+
+export const goals = {
+  myGoal: `I want to be a vital team member in your company, that's why I constantly have new
+  projects to work on all the time testing myself on new languages, Programing styles, and
+  messing with new technologies, and always reading up to the latest in tech news. I have
+  experience in being a frontend developer for 3+ years now, and currently, I'm a frontend
+  developer at Rovitracker and work on the critical frontend projects there. I love
+  react.js with a passion and it brings me joy to build projects in this framework.`,
+  simple: `I believe in simplicity to the user interface, but displaying all information to those
+  users with out cluttering there screen.`,
+  neverEnd: `This goal can never end as every project can spark new ideas and better ways to improve
+  the user interface.`,
+}
