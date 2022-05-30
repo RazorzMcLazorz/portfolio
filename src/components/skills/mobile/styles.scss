@@ -1,0 +1,43 @@
+#skillsMob {
+    width: 100vw;
+    #skillsMobDetails {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      .skillsMobMiddle{
+          display: flex;
+          flex-direction: column;
+          width: 80%;
+          align-items: center;
+          margin-left: 20%;
+      }
+    }
+  }
+  
+  .skillsMobBox{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+      padding: 25px;
+      margin: 25px;
+  }
+  
+  .skillsMobBoxHeader {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      height: 25px;
+      border-bottom-style: solid;
+      border-bottom-width: 1px;
+      border-bottom-color: #44d9e6;
+  }
+  
+  .skillsMobBoxContent{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 300px;
+      padding: 15px;
+  }
