@@ -17,12 +17,12 @@ export const buildProject = (project: any) => {
               target='_blank'
               href={projectInfo.projects.link[project]}
               rel='noreferrer'>
-              <WebIcon />
+              <WebIcon className='projectButtonComponentIcon' />
             </a>
           )}
           {projectInfo.projects.dedicate[project] && (
             <a className='project-button-component' href={projectInfo.projects.dedicate[project]}>
-              <WebIcon />
+              <WebIcon className='projectButtonComponentIcon' />
             </a>
           )}
           {projectInfo.projects.github[project] && (
@@ -31,7 +31,7 @@ export const buildProject = (project: any) => {
               target='_blank'
               href={projectInfo.projects.github[project]}
               rel='noreferrer'>
-              <GitHubIcon />
+              <GitHubIcon className='projectButtonComponentIcon' />
             </a>
           )}
         </div>
