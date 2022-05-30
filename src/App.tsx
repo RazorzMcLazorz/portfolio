@@ -3,6 +3,7 @@ import routes from './constants/routes'
 import Home from './components/home/Home'
 import HomeMob from './components/home/mobile/HomeMob'
 import Projects from './components/projects/Projects'
+import ProjectMob from './components/projects/mobile/ProjectMob'
 import Skills from './components/skills/Skills'
 import Contact from './components/contact/Contact'
 
@@ -12,7 +13,7 @@ function App() {
       {window.screen.width < 600 ? (
         <Routes>
           <Route path={routes.home} element={<HomeMob />} />
-          <Route path={routes.projects} element={<Projects />} />
+          <Route path={routes.projects} element={<ProjectMob />} />
           <Route path={routes.skills} element={<Skills />} />
           <Route path={routes.contact} element={<Contact />} />
         </Routes>
