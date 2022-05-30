@@ -1,5 +1,7 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
+// @ts-ignore
+import Particles from 'particlesjs'
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 import './index.scss'
 import App from './App'
@@ -8,6 +10,17 @@ import reportWebVitals from './reportWebVitals'
 const container = document.getElementById('root')
 
 const root = createRoot(container!)
+
+window.onload = function () {
+  Particles.init({
+    selector: '.background',
+    maxParticles: window.screen.width < 600 ? 200 : 450,
+    color: '#44d9e6',
+    connectParticles: false,
+    sizeVariations: 1,
+    speed: window.screen.width < 600 ? 0.1 : 0.3,
+  })
+}
 
 root.render(
   <React.StrictMode>
