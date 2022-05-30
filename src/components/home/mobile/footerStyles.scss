@@ -1,0 +1,29 @@
+#footer {
+    display: flex;
+    flex-direction: column-reverse;
+    width: 100vw;
+    font-size: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    color: #969696;
+    background-color: #2a2a2a;
+    z-index: 2;
+    #footerDesktop {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        #footerLeft {
+            display: flex;
+            width: 50%;
+            float: left;
+            margin-left: 5px;
+        }
+        #footerRight {
+            display: flex;
+            justify-content: flex-end;
+            width: 50%;
+            float: right;
+            margin-right: 5px;
+        }
+    }
+}
