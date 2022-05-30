@@ -1,6 +1,6 @@
 import { Component } from 'react'
 import { Link } from 'react-router-dom'
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import './styles.scss'
 
 class NavBar extends Component {
@@ -8,7 +8,7 @@ class NavBar extends Component {
     return (
       <div id='NavBar'>
         <Link className='NavBarBack' to='/'>
-          <ArrowBackIosNewIcon />
+          <ArrowBackIcon className='NavBarBackIcon' />
         </Link>
       </div>
     )

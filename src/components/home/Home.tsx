@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
-import './styles.scss'
+import GitHubIcon from '@mui/icons-material/GitHub'
 import NameSignedComponent from '../common/nameSigned/NameSignedComponent'
 import { langColLeft, langColRight, website } from './constants'
+import './styles.scss'
 
 const languages = (lang: any) => {
   return (
@@ -30,8 +31,7 @@ function Home() {
           Contact
         </Link>
         <a href='https://github.com/RazorzMcLazorz' target='_blank' rel='noreferrer'>
-          {/* @ts-ignore */}
-          <i className='fab fa-github-square' style={{ fontSize: 40 }}></i>
+          <GitHubIcon style={{ fontSize: 40 }} />
         </a>
       </div>
       <div id='homeBody'>

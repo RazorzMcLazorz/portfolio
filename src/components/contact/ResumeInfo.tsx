@@ -3,13 +3,18 @@ import printJS from 'print-js'
 
 const Resume = process.env.PUBLIC_URL + '/assets/Resume.pdf'
 
-function ResumeInfo() {
+function ResumeInfo({ isMobile }: { isMobile?: boolean }) {
   return (
     <div className='ResumeInfo'>
-      <div className={'ResumeInfoName'}>Resume</div>
+      <div className={isMobile ? 'ContactInfoNameMob' : 'ResumeInfoName'}>Resume</div>
       <div onClick={() => printJS(Resume)} className='pdfRender'>
         <Document file={Resume} renderMode='canvas'>
-          <Page pageNumber={1} height={500} renderMode='canvas' renderTextLayer={false} />
+          <Page
+            pageNumber={1}
+            height={isMobile ? 300 : 500}
+            renderMode='canvas'
+            renderTextLayer={false}
+          />
         </Document>
       </div>
     </div>
