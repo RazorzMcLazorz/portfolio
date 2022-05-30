@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { isMobile } from 'react-device-detect'
 import routes from './constants/routes'
 import Home from './components/home/Home'
 import HomeMob from './components/home/mobile/HomeMob'
@@ -12,7 +13,7 @@ import ContactMob from './components/contact/mobile/ContactMob'
 function App() {
   return (
     <BrowserRouter>
-      {window.screen.width < 600 ? (
+      {isMobile ? (
         <Routes>
           <Route path={routes.home} element={<HomeMob />} />
           <Route path={routes.projects} element={<ProjectMob />} />
