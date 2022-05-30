@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import GitHubIcon from '@mui/icons-material/GitHub'
 import NameSignedComponent from '../common/nameSigned/NameSignedComponent'
-import { langColLeft, langColRight, website } from './constants'
+import { langColLeft, langColRight, website, goals } from './constants'
 import './styles.scss'
 
 const languages = (lang: any) => {
@@ -60,22 +60,9 @@ function Home() {
         </div>
         <div className='homeGoal'>
           <div className='homeGoalName'>My Goal</div>
-          <div className='homeGoalBody'>
-            I want to be a vital team member in your company, that's why I constantly have new
-            projects to work on all the time testing myself on new languages, Programing styles, and
-            messing with new technologies, and always reading up to the latest in tech news. I have
-            experience in being a frontend developer for 3+ years now, and currently, I'm a frontend
-            developer at Rovitracker and work on the critical frontend projects there. I love
-            react.js with a passion and it brings me joy to build projects in this framework.
-          </div>
-          <div className='homeGoalBody'>
-            I believe in simplicity to the user interface, but displaying all information to those
-            users with out cluttering there screen.
-          </div>
-          <div className='homeGoalBody'>
-            This goal can never end as every project can spark new ideas and better ways to improve
-            the user interface.
-          </div>
+          <div className='homeGoalBody'>{goals.myGoal}</div>
+          <div className='homeGoalBody'>{goals.simple}</div>
+          <div className='homeGoalBody'>{goals.neverEnd}</div>
           <div className='homeGoalName'>My Education</div>
           <div className='homeGoalBody'>
             Bottega is the coding boot camp i went to learn javascript and python.
