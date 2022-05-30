@@ -1,5 +1,6 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
+import { isMobile } from 'react-device-detect'
 // @ts-ignore
 import Particles from 'particlesjs'
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
@@ -14,11 +15,11 @@ const root = createRoot(container!)
 window.onload = function () {
   Particles.init({
     selector: '.background',
-    maxParticles: window.screen.width < 600 ? 200 : 450,
+    maxParticles: isMobile ? 200 : 450,
     color: '#44d9e6',
     connectParticles: false,
     sizeVariations: 1,
-    speed: window.screen.width < 600 ? 0.1 : 0.3,
+    speed: isMobile ? 0.1 : 0.3,
   })
 }
 
