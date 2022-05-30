@@ -5,6 +5,7 @@ import HomeMob from './components/home/mobile/HomeMob'
 import Projects from './components/projects/Projects'
 import ProjectMob from './components/projects/mobile/ProjectMob'
 import Skills from './components/skills/Skills'
+import SkillsMob from './components/skills/mobile/SkillsMob'
 import Contact from './components/contact/Contact'
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
         <Routes>
           <Route path={routes.home} element={<HomeMob />} />
           <Route path={routes.projects} element={<ProjectMob />} />
-          <Route path={routes.skills} element={<Skills />} />
+          <Route path={routes.skills} element={<SkillsMob />} />
           <Route path={routes.contact} element={<Contact />} />
         </Routes>
       ) : (
