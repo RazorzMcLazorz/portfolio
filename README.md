@@ -2,6 +2,17 @@
 
 Nathaniel P. Young's portfolio, built with React 19, TypeScript, Vite 8, Material UI, and Bun.
 
+The main page adapts the design from
+[portfolio2023](https://github.com/RazorzMcLazorz/portfolio2023) (source commit `5905eb9`):
+sunrise/sunset mountain artwork, Iceberg typography, offset-shadow cards, work experience, projects,
+orbiting technologies, about/contact, résumé, and references. The existing Bun/Vite toolchain is
+retained; this is not a migration back to Next.js.
+
+The theme switch remembers your choice locally and defaults to sunset. Skill orbits pause on hover,
+keyboard focus, or the pause button. Narrow screens and reduced-motion preferences use a static
+technology list. All assets and the font are served locally; the font license is included alongside
+it.
+
 ## Getting started
 
 - Bun **1.4.2+** (the committed lockfile uses Bun).
@@ -52,28 +63,37 @@ matching versions when upgrading.
 src/
   main.tsx                 # React entry point
   App.tsx                  # Theme and routes
-  theme.ts                 # Shared Material UI theme
+  theme.ts                 # Sunrise/sunset Material UI palettes
+  SceneryContext.ts        # Shared theme selection
   index.css                # Responsive layout and global styles
   components/
     common/                # Navigation, layout, original signature
-    home/                  # Introduction, education, technology links
+    home/                  # Single-page portfolio, experience, about/education
     projects/              # Typed project data and cards
-    skills/                # Skills and background
+    skills/                # Accessible skill orbits and background
     contact/               # Contact links, references, résumé
   test/                    # React Testing Library setup
 tests/e2e/                 # Playwright user-flow tests
-public/assets/Resume.pdf   # Original résumé; replace here when updating
+public/assets/Resume.pdf   # Résumé imported from portfolio2023; review before publishing
+public/assets/concept/     # Original artwork, logo, photo, and licensed Iceberg font
 ```
 
 There is one responsive component tree for mobile and desktop, with keyboard navigation, a skip
-link, route focus handling, and reduced-motion support. The résumé uses the browser's PDF viewer
-with always-available open/download links rather than a Webpack-specific renderer.
+link, route/section focus handling, and reduced-motion support. Navigation links to sections of the
+home page; `/projects`, `/skills`, and `/contact` remain available as directly accessible pages. The
+résumé uses the browser's PDF viewer with always-available open/download links rather than a
+Webpack-specific renderer.
 
-Project descriptions and source repositories were retained. The six old Heroku demos returned 404
-during migration, so their URLs are retained as `archivedDemo` metadata but are not clickable.
-`plannedProjects` retains the unpublished HJReptiles entry. Confirm current project statuses,
-education/employment details, reference contact details, and the résumé before publishing; the
-migration does not verify or invent updated biographical information.
+Legacy project descriptions and source repositories were retained, with the concept's client
+projects and portfolio entry added. The cabinetry project uses the concept's `WolfsBaneWebsite`
+source link. Private repositories are labeled without exposing source links. The six old Heroku
+demos returned 404 during migration, so their URLs are retained as `archivedDemo` metadata but are
+not clickable. Allergen Buddy's domain failed DNS resolution during the theme migration, so its URL
+is also retained only as archived metadata. Wild Haven responded successfully and keeps its live
+link. `plannedProjects` retains the unpublished HJReptiles entry. Employment dates, including Dyno
+Nobel's “May 2021 – Present,” come from the 2023 concept and have not been independently updated.
+Confirm current project statuses, education/employment details, reference contact details, and the
+résumé before publishing; the migration does not verify or invent updated biographical information.
 
 ## Deployment
 

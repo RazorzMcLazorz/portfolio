@@ -8,7 +8,12 @@ const resumeUrl = `${import.meta.env.BASE_URL}assets/Resume.pdf`
 
 export default function ResumeInfo() {
   return (
-    <Paper component='section' className='panel section' aria-labelledby='resume-title'>
+    <Paper
+      component='section'
+      className='panel landing-section'
+      id='resume'
+      aria-labelledby='resume-title'
+      tabIndex={-1}>
       <Typography variant='h2' id='resume-title' className='section-title'>
         Résumé
       </Typography>

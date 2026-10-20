@@ -15,6 +15,7 @@ export const technologies = [
   { name: 'Git', url: 'https://git-scm.com/' },
   { name: 'MySQL', url: 'https://www.mysql.com/' },
   { name: 'Node.js', url: 'https://nodejs.org/' },
+  { name: 'Appwrite', url: 'https://appwrite.io/' },
   { name: 'HTTP', url: 'https://developer.mozilla.org/en-US/docs/Web/HTTP' },
   { name: 'iTerm', url: 'https://iterm2.com/' },
 ] satisfies { name: string; url: string }[]

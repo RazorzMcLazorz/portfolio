@@ -3,13 +3,44 @@ export interface PortfolioProject {
   title: string
   summary: string
   date: string
-  github: string
+  github?: string
+  website?: string
+  private?: boolean
   archivedDemo?: string
 }
 
 // These original Heroku demos returned 404 when checked during the migration.
 // Keep their URLs as historical metadata, but don't send visitors to broken demos.
-export const projectGroups = [
+export const projectGroups: { title: string; projects: PortfolioProject[] }[] = [
+  {
+    title: 'Client & Portfolio Projects',
+    projects: [
+      {
+        id: 'allergen-buddy',
+        title: 'Allergen Buddy',
+        summary: 'A website that helps people with allergies plan events.',
+        date: 'Client project',
+        private: true,
+        archivedDemo: 'https://allergenbuddy.com',
+      },
+      {
+        id: 'wild-haven',
+        title: 'Wild Haven / Wolf Haven',
+        summary: 'Helped migrate an existing PHP application to a React frontend.',
+        date: 'Client project',
+        website: 'https://wild-haven.app',
+        private: true,
+      },
+      {
+        id: 'portfolio-v1',
+        title: 'v1.0 Portfolio',
+        summary:
+          'The first version of my portfolio, built with React and TypeScript. This site carries that work forward with a new design and a modern toolchain.',
+        date: 'Personal project',
+        github: 'https://github.com/RazorzMcLazorz/portfolio',
+      },
+    ],
+  },
   {
     title: 'Featured Project',
     projects: [
@@ -19,7 +50,7 @@ export const projectGroups = [
         summary:
           'A custom landing page for a cabinetry and furniture business. I worked with a friend to select a design and built the site using freely available stock photography.',
         date: 'August 2020 – January 2021',
-        github: 'https://github.com/RazorzMcLazorz/wbcf',
+        github: 'https://github.com/RazorzMcLazorz/WolfsBaneWebsite',
         archivedDemo: 'https://wbcf.herokuapp.com/',
       },
     ],
@@ -92,7 +123,7 @@ export const projectGroups = [
       },
     ],
   },
-] satisfies { title: string; projects: PortfolioProject[] }[]
+]
 
 // Retained from the original portfolio; not yet part of the published project groups.
 export const plannedProjects: PortfolioProject[] = [

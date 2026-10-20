@@ -1,5 +1,6 @@
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
+import SkillsOrbit from './SkillsOrbit'
 
 const skills = [
   {
@@ -41,6 +42,7 @@ export default function Skills() {
         Skills
       </Typography>
       <p className='page-intro'>The tools I use and the experience behind my work.</p>
+      <SkillsOrbit />
       <div className='content-grid'>
         {skills.map(({ title, description }) => (
           <Paper component='section' className='panel' key={title} aria-label={title}>

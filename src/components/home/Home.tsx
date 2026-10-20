@@ -1,79 +1,83 @@
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward'
 import Button from '@mui/material/Button'
-import Chip from '@mui/material/Chip'
-import Paper from '@mui/material/Paper'
+import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
-import { Link } from 'react-router-dom'
-import NameSignedComponent from '../common/nameSigned/NameSignedComponent'
-import { goals, technologies } from './constants'
+import ContactInfo from '../contact/ContactInfo'
+import References from '../contact/References'
+import ResumeInfo from '../contact/ResumeInfo'
+import Projects from '../projects/Projects'
+import SkillsOrbit from '../skills/SkillsOrbit'
+import AboutMe from './AboutMe'
+import WorkExperience from './WorkExperience'
 
 export default function Home() {
   return (
     <>
       <section className='hero' aria-labelledby='home-title'>
-        <Typography component='p' className='eyebrow' color='primary'>
-          Frontend Developer
+        <Typography component='p' className='eyebrow'>
+          TypeScript · React · Frontend Developer
         </Typography>
         <Typography variant='h1' id='home-title'>
-          Nathaniel P. Young
+          Nathaniel Patrick Young
         </Typography>
         <Typography
           component='p'
-          color='text.secondary'
-          sx={{ fontSize: '1.25rem', maxWidth: '38rem' }}>
-          Building thoughtful interfaces with TypeScript and React.
+          sx={{ fontSize: 'clamp(1.1rem, 2vw, 1.4rem)', maxWidth: '34rem' }}>
+          Thoughtful interfaces. A little curiosity. A love of building.
         </Typography>
         <div className='actions'>
-          <Button
-            component={Link}
-            to='/projects'
-            variant='contained'
-            endIcon={<ArrowForwardIcon />}>
+          <Button component='a' href='#projects' variant='contained'>
             Explore my projects
           </Button>
-          <Button component={Link} to='/contact' variant='outlined'>
+          <Button component='a' href='#contact' variant='outlined'>
             Get in touch
           </Button>
         </div>
-        <NameSignedComponent />
+        <IconButton
+          component='a'
+          href='#workexperience'
+          className='scroll-down'
+          aria-label='Scroll to work experience'>
+          <ArrowDownwardIcon />
+        </IconButton>
       </section>
-      <div className='content-grid'>
-        <Paper component='section' className='panel' aria-labelledby='goal-title'>
-          <Typography variant='h2' id='goal-title' className='section-title'>
-            My Goal
-          </Typography>
-          {Object.values(goals).map((goal) => (
-            <p key={goal}>{goal}</p>
-          ))}
-        </Paper>
-        <Paper component='section' className='panel' aria-labelledby='education-title'>
-          <Typography variant='h2' id='education-title' className='section-title'>
-            Education
-          </Typography>
-          <Typography variant='h3'>Bottega</Typography>
-          <p>Coding boot camp focused on JavaScript and Python.</p>
-          <Typography variant='h3'>Utah Valley University</Typography>
-          <p>Computer science studies.</p>
-        </Paper>
-      </div>
-      <section className='section' aria-labelledby='technology-title'>
-        <Typography variant='h2' id='technology-title' className='section-title'>
-          Technologies I Work With
+      <WorkExperience />
+      <Projects embedded />
+      <section
+        className='landing-section'
+        id='languages'
+        aria-labelledby='languages-title'
+        tabIndex={-1}>
+        <p className='eyebrow'>The toolkit</p>
+        <Typography variant='h2' id='languages-title' className='section-title'>
+          Languages & Technologies
         </Typography>
-        <div className='technology-list'>
-          {technologies.map(({ name, url }) => (
-            <Chip
-              key={name}
-              label={name}
-              component='a'
-              href={url}
-              target='_blank'
-              rel='noopener noreferrer'
-              clickable
-              variant='outlined'
-            />
-          ))}
-        </div>
+        <p className='section-intro'>The languages, frameworks, and tools behind my work.</p>
+        <SkillsOrbit />
+      </section>
+      <AboutMe />
+      <section
+        className='landing-section'
+        id='contact'
+        aria-labelledby='contact-title'
+        tabIndex={-1}>
+        <p className='eyebrow'>Let's connect</p>
+        <Typography variant='h2' id='contact-title' className='section-title'>
+          Contact Me
+        </Typography>
+        <ContactInfo />
+      </section>
+      <ResumeInfo />
+      <section
+        className='landing-section'
+        id='references'
+        aria-labelledby='references-section-title'
+        tabIndex={-1}>
+        <p className='eyebrow'>People I've worked with</p>
+        <Typography variant='h2' id='references-section-title' className='section-title'>
+          References
+        </Typography>
+        <References />
       </section>
     </>
   )
