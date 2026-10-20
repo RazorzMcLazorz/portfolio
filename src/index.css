@@ -29,6 +29,13 @@ body {
   --rule: #ffddad40;
   --landscape-ink: #550701;
   --landscape-shade: #22060088;
+  --terrain-hills: #8a2c22;
+  --terrain-ridge: #a33b27;
+  --terrain-trees-back: #b55a3d;
+  --terrain-trees-front: #dc9462;
+  --terrain-bank: #6b241d;
+  --terrain-rocks: #ab6550;
+  --terrain-wildlife: #ffe0a6;
   position: relative;
   isolation: isolate;
   min-height: 100svh;
@@ -40,6 +47,13 @@ body {
   --rule: #9cdbff40;
   --landscape-ink: #062b79;
   --landscape-shade: #00194088;
+  --terrain-hills: #123f72;
+  --terrain-ridge: #1c5484;
+  --terrain-trees-back: #2e7195;
+  --terrain-trees-front: #68adbd;
+  --terrain-bank: #10365f;
+  --terrain-rocks: #517f9d;
+  --terrain-wildlife: #c5e6ef;
 }
 a {
   color: var(--accent);
@@ -96,6 +110,98 @@ p {
   height: 34rem;
   opacity: 0.35;
   mask-image: linear-gradient(#000, transparent);
+}
+
+/* Decorative gutters only: the 1080px reading column always stays clear. */
+.terrain-journey {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.terrain-rail {
+  position: absolute;
+  inset-block: 0;
+  width: min(20rem, calc((100vw - 1080px) / 2 - 2rem));
+  overflow: hidden;
+}
+.terrain-rail--left {
+  left: 0;
+  mask-image: linear-gradient(to right, #000 65%, transparent);
+}
+.terrain-rail--right {
+  right: 0;
+  mask-image: linear-gradient(to left, #000 65%, transparent);
+}
+.terrain-world {
+  position: absolute;
+  inset: 0;
+}
+.terrain-rail--right .terrain-world {
+  transform: scaleX(-1);
+}
+.terrain-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 300vh;
+}
+.terrain-layer--distant {
+  opacity: 0.75;
+}
+.terrain-layer--woodland {
+  opacity: 0.8;
+}
+.terrain-layer--foreground {
+  opacity: 0.85;
+}
+.terrain-floor {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.terrain-hills {
+  fill: var(--terrain-hills);
+}
+.terrain-ridge {
+  fill: var(--terrain-ridge);
+}
+.terrain-trees-back {
+  fill: var(--terrain-trees-back);
+}
+.terrain-trees-front {
+  fill: var(--terrain-trees-front);
+}
+.terrain-trunk,
+.terrain-ground {
+  fill: var(--terrain-bank);
+}
+.terrain-rocks {
+  fill: var(--terrain-rocks);
+}
+.terrain-rock-faces {
+  fill: var(--terrain-trees-back);
+}
+.terrain-elk {
+  fill: var(--terrain-wildlife);
+}
+.terrain-antlers {
+  fill: none;
+  stroke: var(--terrain-wildlife);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+@media (min-width: 1280px) and (hover: hover) and (pointer: fine) {
+  .terrain-journey {
+    display: block;
+  }
 }
 .site-header {
   width: min(100% - 4rem, 1440px);

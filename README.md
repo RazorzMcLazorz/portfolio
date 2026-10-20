@@ -13,6 +13,13 @@ keyboard focus, or the pause button. Narrow screens and reduced-motion preferenc
 technology list. All assets and the font are served locally; the font license is included alongside
 it.
 
+On desktop screens (1280px+ with a fine pointer), React Spring moves three simple SVG layers in the
+side gutters as you scroll: large, side-on pine trees with distant woodland behind them. Rocky
+ground and a simple elk silhouette come into view near the footer. The reading column stays clear,
+both themes have matching scenery, and scrolling remains native. Smaller/touch screens do not mount
+the scenery or its scroll listeners; reduced-motion users get a static illustration. The terrain is
+only shown on the home page.
+
 ## Getting started
 
 - Bun **1.4.2+** (the committed lockfile uses Bun).

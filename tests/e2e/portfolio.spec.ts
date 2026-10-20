@@ -228,3 +228,102 @@ test('the migration worker retires itself without deleting other caches', async 
     .toBe(0)
   expect(await page.evaluate(() => caches.has('unrelated-app-cache'))).toBe(true)
 })
+
+test('desktop terrain stays in the gutters, follows scrolling, and matches both themes', async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(isMobile, 'Animated terrain is desktop only')
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.emulateMedia({ reducedMotion: 'no-preference' })
+  await page.goto('/')
+  const terrain = page.locator('.terrain-journey')
+  await expect(terrain).toHaveAttribute('aria-hidden', 'true')
+  await expect(terrain).toHaveCSS('opacity', '0')
+  await expect(terrain).toHaveCSS('pointer-events', 'none')
+  await expect(page.locator('.terrain-layer')).toHaveCount(6)
+  const floor = page.locator('.terrain-floor').last()
+  const elk = page.locator('.terrain-elk')
+  await expect(elk).toHaveCount(1)
+  await expect(elk).not.toBeInViewport()
+  const column = (await page.getByRole('main').boundingBox())!
+  const left = (await page.locator('.terrain-rail--left').boundingBox())!
+  const right = (await page.locator('.terrain-rail--right').boundingBox())!
+  expect(left.x + left.width).toBeLessThanOrEqual(column.x - 32)
+  expect(right.x).toBeGreaterThanOrEqual(column.x + column.width + 32)
+
+  await page.evaluate(() => window.scrollTo({ top: 1200, behavior: 'instant' }))
+  await expect(terrain).toHaveCSS('opacity', '1')
+  const distant = page.locator('.terrain-layer--distant').first()
+  const trees = page.locator('.terrain-layer--woodland').first()
+  const pine = (await page.locator('.terrain-trees-front .terrain-pine').first().boundingBox())!
+  expect(pine.height).toBeGreaterThan(350)
+  await expect(elk).not.toBeInViewport()
+  await expect
+    .poll(() =>
+      distant.evaluate((element) => new DOMMatrix(getComputedStyle(element).transform).m42),
+    )
+    .toBeLessThan(0)
+  expect(await trees.getAttribute('style')).not.toBe(await distant.getAttribute('style'))
+  const before = await distant.getAttribute('style')
+  await page.evaluate(() =>
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'instant' }),
+  )
+  await expect.poll(() => distant.getAttribute('style')).not.toBe(before)
+  await expect
+    .poll(() => floor.evaluate((element) => new DOMMatrix(getComputedStyle(element).transform).m42))
+    .toBeCloseTo(0, 0)
+  await expect(elk).toBeInViewport()
+  const ground = (await floor.boundingBox())!
+  expect(ground.y + ground.height).toBeCloseTo(900, 0)
+  expect(ground.x).toBeGreaterThanOrEqual(right.x)
+  await expect(page.locator('.terrain-rocks')).toHaveCount(2)
+  await expect(page.locator('.terrain-river, .terrain-waterline')).toHaveCount(0)
+  await expect(page.locator('.terrain-trees-front').first()).toHaveCSS('fill', 'rgb(220, 148, 98)')
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(1440)
+
+  await page.getByRole('button', { name: 'Back to top' }).click()
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0)
+  await page.getByRole('switch', { name: 'Sunrise theme' }).check()
+  await expect(page.locator('.terrain-trees-front').first()).toHaveCSS('fill', 'rgb(104, 173, 189)')
+  await page.getByRole('navigation').getByRole('link', { name: 'Projects', exact: true }).click()
+  await expect(page.locator('#projects')).toBeFocused()
+
+  await page.setViewportSize({ width: 1100, height: 900 })
+  await expect(terrain).toHaveCount(0)
+  await page.setViewportSize({ width: 1920, height: 900 })
+  await expect(terrain).toBeVisible()
+  await page.goto('/projects')
+  await expect(terrain).toHaveCount(0)
+})
+
+test('desktop reduced-motion scenery remains still and responds to preference changes', async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(isMobile, 'Static terrain is desktop only')
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.goto('/')
+  const layer = page.locator('.terrain-layer').first()
+  const before = await layer.getAttribute('style')
+  await page.evaluate(() => window.scrollTo({ top: 1800, behavior: 'instant' }))
+  await expect(layer).toHaveAttribute('style', before!)
+  await expect(page.locator('.terrain-journey')).toHaveCSS('opacity', '1')
+  await expect(page.locator('.terrain-elk')).toBeInViewport()
+
+  await page.emulateMedia({ reducedMotion: 'no-preference' })
+  await expect(layer).not.toHaveAttribute('style', before!)
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await expect(layer).toHaveAttribute('style', before!)
+})
+
+test('touch screens do not mount desktop terrain even with a wide viewport', async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(!isMobile, 'Checks touch-screen exclusion')
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.goto('/')
+  await expect(page.locator('.terrain-journey')).toHaveCount(0)
+})

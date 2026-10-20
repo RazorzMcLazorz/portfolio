@@ -1,6 +1,7 @@
 import { useContext, useEffect, useRef } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import { SceneryContext } from '../../SceneryContext'
+import TerrainJourney from '../home/TerrainJourney'
 import BackToTop from './BackToTop'
 import NavBar from './navBar/NavBar'
 
@@ -44,6 +45,7 @@ export default function Layout() {
           fetchPriority='high'
         />
       </div>
+      {pathname === '/' && <TerrainJourney />}
       <a className='skip-link' href='#main-content'>
         Skip to content
       </a>
