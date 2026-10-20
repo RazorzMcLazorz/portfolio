@@ -1,0 +1,14 @@
+[build]
+  command = "bun run build"
+  publish = "dist"
+
+[build.environment]
+  BUN_VERSION = "1.4.2"
+  BUN_FLAGS = "--frozen-lockfile"
+
+# Let React Router handle page URLs without replacing real static assets.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = false

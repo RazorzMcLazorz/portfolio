@@ -101,6 +101,18 @@ Deploy **`dist/`**, not CRA's old `build/` directory. Configure the host to serv
 application routes such as `/projects`, `/skills`, and `/contact`. Serve real static files directly
 (especially the PDF and worker), not through that fallback.
 
+### Netlify
+
+`netlify.toml` sets the build command to `bun run build` and the publish directory to `dist`,
+overriding the old Netlify UI settings (`npm run build` / `build`). Bun is pinned to the project's
+version and installs use the frozen lockfile; Node uses `.node-version`.
+
+The SPA rewrite serves `index.html` for application routes while real assets, including the résumé
+and migration worker, take precedence. After deploying this configuration, retry the **latest branch
+commit** with Netlify's clear-cache option if the old deployment settings or dependencies persist.
+
+### Other hosts and subdirectories
+
 For a subdirectory deployment:
 
 ```sh
