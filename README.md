@@ -1,46 +1,98 @@
-# Getting Started with Create React App
+# Nate's Portfolio
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Nathaniel P. Young's portfolio, built with React 19, TypeScript, Vite 8, Material UI, and Bun.
 
-## Available Scripts
+## Getting started
 
-In the project directory, you can run:
+- Bun **1.4.2+** (the committed lockfile uses Bun).
+- Node **24.22.0** recommended; see `.node-version`. Vite, Vitest, and other tooling run on Node.
 
-### `yarn start`
+```sh
+bun install --frozen-lockfile
+bun run dev
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open <http://localhost:5173>. Use `bun run test`, not `bun test`: the tests use Vitest and jsdom.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Commands
 
-### `yarn test`
+| Command                                           | Purpose                                                      |
+| ------------------------------------------------- | ------------------------------------------------------------ |
+| `bun run dev`                                     | Vite development server (`start` is an alias)                |
+| `bun run build`                                   | Strict TypeScript checks and production build to `dist/`     |
+| `bun run preview`                                 | Serve the production build locally                           |
+| `bun run typecheck`                               | Check application, config, and test types                    |
+| `bun run lint`                                    | ESLint, including React hook checks                          |
+| `bun run format` / `bun run format:check`         | Write / verify Prettier formatting                           |
+| `bun run test` / `bun run test:watch`             | Component/unit tests once / in watch mode                    |
+| `bun run test:ui`                                 | Vitest UI                                                    |
+| `bun run test:coverage`                           | V8 coverage with enforced thresholds                         |
+| `bun run test:e2e`                                | Desktop and mobile Chromium tests against a production build |
+| `bun run test:e2e:headed` / `bun run test:e2e:ui` | Interactive browser tests                                    |
+| `bun run check`                                   | Formatting, lint, coverage, types, and build                 |
+| `bun audit`                                       | Check installed dependencies for known vulnerabilities       |
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Install the browser before running E2E tests:
 
-### `yarn build`
+```sh
+bunx --no-install playwright install chromium
+bun run test:e2e
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Coverage gates: 90% statements, functions, and lines; 85% branches. Reports are in `coverage/`.
+Husky runs lint-staged and unit tests before commits, and coverage before pushes. CI also checks
+dependencies and runs desktop/mobile browser tests. No live deployments or credentials are required.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+TypeScript stays on 6.0 until typescript-eslint supports TypeScript 7. Keep the Vitest packages on
+matching versions when upgrading.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Structure and content
 
-### `yarn eject`
+```text
+src/
+  main.tsx                 # React entry point
+  App.tsx                  # Theme and routes
+  theme.ts                 # Shared Material UI theme
+  index.css                # Responsive layout and global styles
+  components/
+    common/                # Navigation, layout, original signature
+    home/                  # Introduction, education, technology links
+    projects/              # Typed project data and cards
+    skills/                # Skills and background
+    contact/               # Contact links, references, résumé
+  test/                    # React Testing Library setup
+tests/e2e/                 # Playwright user-flow tests
+public/assets/Resume.pdf   # Original résumé; replace here when updating
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+There is one responsive component tree for mobile and desktop, with keyboard navigation, a skip
+link, route focus handling, and reduced-motion support. The résumé uses the browser's PDF viewer
+with always-available open/download links rather than a Webpack-specific renderer.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Project descriptions and source repositories were retained. The six old Heroku demos returned 404
+during migration, so their URLs are retained as `archivedDemo` metadata but are not clickable.
+`plannedProjects` retains the unpublished HJReptiles entry. Confirm current project statuses,
+education/employment details, reference contact details, and the résumé before publishing; the
+migration does not verify or invent updated biographical information.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Deployment
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Deploy **`dist/`**, not CRA's old `build/` directory. Configure the host to serve `index.html` for
+application routes such as `/projects`, `/skills`, and `/contact`. Serve real static files directly
+(especially the PDF and worker), not through that fallback.
 
-## Learn More
+For a subdirectory deployment:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```sh
+bun run build --base /portfolio/
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The router and asset paths use Vite's base URL. Deploy that output at `/portfolio/` and configure
+the fallback to `/portfolio/index.html`.
+
+The old CRA service worker is no longer registered. Keep `public/service-worker.js` deployed as a
+migration-only worker so returning visitors can leave the old cache-first version. The app also
+unregisters only the previous portfolio worker; it does not remove other apps' workers or caches.
+Offline/PWA caching is not enabled. A previously cached tab may need to be reloaded after the worker
+updates. No environment variables are needed; any future `VITE_*` variables are public browser data,
+not secrets.

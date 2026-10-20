@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+set -e
+
+bunx --no-install lint-staged
+bun run test

@@ -1,32 +1,38 @@
-export const project = (project: any) => {
+import GitHubIcon from '@mui/icons-material/GitHub'
+import Button from '@mui/material/Button'
+import Paper from '@mui/material/Paper'
+import Typography from '@mui/material/Typography'
+import type { PortfolioProject } from './constants'
+
+export default function Project({ project }: { project: PortfolioProject }) {
   return (
-    <div className='project'>
-      <div className='project-title'>{project.title[project]}</div>
-      <div className='project-details'>
-        <div className='project-description'>{project.summary[project]}</div>
-        <div className='project-buttons'>
-          {project.link[project] && (
-            <a
-              className='project-button-component'
-              onMouseOver={() => console.log('mouseover')}
-              target='_blank'
-              href={project.link[project]}>
-              <i className='fas fa-pager'></i>
-            </a>
-          )}
-          {project.dedicate[project] && (
-            <a className='project-button-component' href={project.dedicate[project]}>
-              <i className='far fa-newspaper'></i>
-            </a>
-          )}
-          {project.github[project] && (
-            <a className='project-button-component' target='_blank' href={project.github[project]}>
-              <i className='fab fa-github'></i>
-            </a>
-          )}
-        </div>
+    <Paper
+      component='article'
+      className='panel project-card'
+      aria-labelledby={`project-${project.id}`}>
+      <Typography variant='h3' id={`project-${project.id}`}>
+        {project.title}
+      </Typography>
+      <Typography component='p' variant='body2' color='text.secondary'>
+        {project.date}
+      </Typography>
+      <p>{project.summary}</p>
+      <div className='project-actions'>
+        <Button
+          component='a'
+          href={project.github}
+          target='_blank'
+          rel='noopener noreferrer'
+          startIcon={<GitHubIcon />}
+          aria-label={`View ${project.title} on GitHub (opens in a new tab)`}>
+          View source
+        </Button>
+        {project.archivedDemo && (
+          <Typography variant='caption' color='text.secondary'>
+            Original demo is no longer available.
+          </Typography>
+        )}
       </div>
-      <div className='project-date'>{project.date[project]}</div>
-    </div>
+    </Paper>
   )
 }

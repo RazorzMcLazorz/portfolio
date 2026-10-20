@@ -1,59 +1,26 @@
-import NavBar from '../common/navBar/NavBar'
-import { projectInfo } from './constants'
-import { buildProject } from './utils'
-import './styles.scss'
+import Typography from '@mui/material/Typography'
+import Project from './Project'
+import { projectGroups } from './constants'
 
-function Projects() {
+export default function Projects() {
   return (
-    <div>
-      <NavBar />
-      <div id='projectWall'>
-        <div id='allProjects'>
-          {projectInfo.bestProject && (
-            <div className='projectBox'>
-              <div id='bestProject' className='projectBoxHeader'>
-                Best Project
-              </div>
-              {projectInfo.bestProject.map((project, key) => (
-                <div key={key}> {buildProject(project)}</div>
-              ))}
-            </div>
-          )}
-
-          {projectInfo.currentProject && (
-            <div className='projectBox'>
-              <div id='currentProject' className='projectBoxHeader'>
-                Current Projects
-              </div>
-              {projectInfo.currentProject.map((project, key) => (
-                <div key={key}> {buildProject(project)}</div>
-              ))}
-            </div>
-          )}
-
-          {projectInfo.pastOtherProject && (
-            <div className='projectBox'>
-              <div id='pastProject' className='projectBoxHeader'>
-                Past Projects
-              </div>
-              {projectInfo.pastOtherProject.map((project, key) => (
-                <div key={key}> {buildProject(project)}</div>
-              ))}
-            </div>
-          )}
-
-          {projectInfo.pastPersonalProject && (
-            <div className='projectBox'>
-              <div className='projectBoxHeader'>Past Personal Projects</div>
-              {projectInfo.pastPersonalProject.map((project, key) => (
-                <div key={key}> {buildProject(project)}</div>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
+    <>
+      <Typography variant='h1' className='page-title'>
+        Projects
+      </Typography>
+      <p className='page-intro'>A selection of websites, games, and experiments I've built.</p>
+      {projectGroups.map(({ title, projects }) => (
+        <section className='section' key={title} aria-label={title}>
+          <Typography variant='h2' className='section-title'>
+            {title}
+          </Typography>
+          <div className='project-grid'>
+            {projects.map((project) => (
+              <Project key={project.id} project={project} />
+            ))}
+          </div>
+        </section>
+      ))}
+    </>
   )
 }
-
-export default Projects

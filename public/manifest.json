@@ -1,6 +1,6 @@
 {
-  "short_name": "Nates Web",
-  "name": "Nates Portfolio LLC",
+  "short_name": "Nate's Portfolio",
+  "name": "Nathaniel P. Young | Frontend Developer",
   "icons": [
     {
       "src": "assets/manifest-icon-192.maskable.png",
@@ -29,6 +29,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#2a2a2a",
+  "background_color": "#2a2a2a"
 }

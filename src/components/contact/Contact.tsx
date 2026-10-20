@@ -1,21 +1,20 @@
-import NavBar from '../common/navBar/NavBar'
+import Typography from '@mui/material/Typography'
 import ContactInfo from './ContactInfo'
+import References from './References'
 import ResumeInfo from './ResumeInfo'
-import Refferences from './Refferences'
-import './styles.scss'
 
-function Contact() {
+export default function Contact() {
   return (
-    <div id='contact'>
-      <NavBar />
-      <div className='contactLeftSide'>
+    <>
+      <Typography variant='h1' className='page-title'>
+        Contact
+      </Typography>
+      <p className='page-intro'>Let's talk about what we can build together.</p>
+      <div className='content-grid'>
         <ContactInfo />
-        <ResumeInfo />
+        <References />
       </div>
-      <div className='contactRightSide'>
-        <Refferences />
-      </div>
-    </div>
+      <ResumeInfo />
+    </>
   )
 }
-export default Contact

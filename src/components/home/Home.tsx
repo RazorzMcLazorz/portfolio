@@ -1,105 +1,80 @@
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+import Button from '@mui/material/Button'
+import Chip from '@mui/material/Chip'
+import Paper from '@mui/material/Paper'
+import Typography from '@mui/material/Typography'
 import { Link } from 'react-router-dom'
-import GitHubIcon from '@mui/icons-material/GitHub'
 import NameSignedComponent from '../common/nameSigned/NameSignedComponent'
-import { langColLeft, langColRight, website, goals } from './constants'
-import './styles.scss'
+import { goals, technologies } from './constants'
 
-const languages = (lang: any) => {
+export default function Home() {
   return (
-    <a
-      target='_blank'
-      // @ts-ignore
-      href={website[lang]}
-      className='homeLanguagesListColumnItem'
-      rel='noreferrer'>
-      {lang}
-    </a>
-  )
-}
-
-function Home() {
-  return (
-    <div id='home' className='energyBackground'>
-      <div id='homeNav'>
-        <Link to='projects' className='homeNavLink'>
-          Projects
-        </Link>
-        <Link to='skills' className='homeNavLink'>
-          Skills
-        </Link>
-        <Link to='contact' className='homeNavLink'>
-          Contact
-        </Link>
-        <a href='https://github.com/RazorzMcLazorz' target='_blank' rel='noreferrer'>
-          <GitHubIcon style={{ fontSize: 40 }} />
-        </a>
-      </div>
-      <div id='homeBody'>
-        <div className='homeNameBox'>
-          <h1 className='homeName'>
-            <span>N</span>
-            <span>a</span>
-            <span>t</span>
-            <span>h</span>
-            <span>a</span>
-            <span>n</span>
-            <span>i</span>
-            <span>e</span>
-            <span>l</span>
-            <pre> </pre>
-            <span>P</span>
-            <span>.</span>
-            <pre> </pre>
-            <span>Y</span>
-            <span>o</span>
-            <span>u</span>
-            <span>n</span>
-            <span>g</span>
-          </h1>
-          <h5>Frontend Developer</h5>
+    <>
+      <section className='hero' aria-labelledby='home-title'>
+        <Typography component='p' className='eyebrow' color='primary'>
+          Frontend Developer
+        </Typography>
+        <Typography variant='h1' id='home-title'>
+          Nathaniel P. Young
+        </Typography>
+        <Typography
+          component='p'
+          color='text.secondary'
+          sx={{ fontSize: '1.25rem', maxWidth: '38rem' }}>
+          Building thoughtful interfaces with TypeScript and React.
+        </Typography>
+        <div className='actions'>
+          <Button
+            component={Link}
+            to='/projects'
+            variant='contained'
+            endIcon={<ArrowForwardIcon />}>
+            Explore my projects
+          </Button>
+          <Button component={Link} to='/contact' variant='outlined'>
+            Get in touch
+          </Button>
         </div>
-        <div className='homeGoal'>
-          <div className='homeGoalName'>My Goal</div>
-          <div className='homeGoalBody'>{goals.myGoal}</div>
-          <div className='homeGoalBody'>{goals.simple}</div>
-          <div className='homeGoalBody'>{goals.neverEnd}</div>
-          <div className='homeGoalName'>My Education</div>
-          <div className='homeGoalBody'>
-            Bottega is the coding boot camp i went to learn javascript and python.
-          </div>
-          <div className='homeGoalBody'>
-            UVU is the school I'm currently in and working towards a bachelors degree in computer
-            science.
-          </div>
-        </div>
-        <div className='homeLanguages'>
-          <div className='homeLanguagesName'>Languages I Know</div>
-          <div className='homeLanguagesList'>
-            <div className='homeLanguagesListColumn'>
-              {langColLeft.map((project, key) => (
-                <div className='homeLanguagesListColumnItem' key={key}>
-                  {languages(project)}
-                </div>
-              ))}
-            </div>
-            <div className='homeLanguagesListColumn'>
-              {langColRight.map((project, key) => (
-                <div className='homeLanguagesListColumnItem' key={key}>
-                  {languages(project)}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div id='homeRightSide'>
         <NameSignedComponent />
-        <a href='/contact'>
-          <img src='/favicon.ico' alt='My Logo' />
-        </a>
+      </section>
+      <div className='content-grid'>
+        <Paper component='section' className='panel' aria-labelledby='goal-title'>
+          <Typography variant='h2' id='goal-title' className='section-title'>
+            My Goal
+          </Typography>
+          {Object.values(goals).map((goal) => (
+            <p key={goal}>{goal}</p>
+          ))}
+        </Paper>
+        <Paper component='section' className='panel' aria-labelledby='education-title'>
+          <Typography variant='h2' id='education-title' className='section-title'>
+            Education
+          </Typography>
+          <Typography variant='h3'>Bottega</Typography>
+          <p>Coding boot camp focused on JavaScript and Python.</p>
+          <Typography variant='h3'>Utah Valley University</Typography>
+          <p>Computer science studies.</p>
+        </Paper>
       </div>
-    </div>
+      <section className='section' aria-labelledby='technology-title'>
+        <Typography variant='h2' id='technology-title' className='section-title'>
+          Technologies I Work With
+        </Typography>
+        <div className='technology-list'>
+          {technologies.map(({ name, url }) => (
+            <Chip
+              key={name}
+              label={name}
+              component='a'
+              href={url}
+              target='_blank'
+              rel='noopener noreferrer'
+              clickable
+              variant='outlined'
+            />
+          ))}
+        </div>
+      </section>
+    </>
   )
 }
-
-export default Home

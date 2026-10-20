@@ -1,56 +1,28 @@
-export const langColLeft = [
-  'React.js',
-  'JavaScript',
-  'Python',
-  'HTML',
-  'SCSS',
-  'TypeScript',
-  'Redux.js',
-  'REST',
-]
-
-export const langColRight = [
-  'AWS Amplify',
-  'BASH',
-  'ZSH',
-  'GIT',
-  'MySQL',
-  'Node.js',
-  'HTTP',
-  'ITerm',
-]
-
-export const website = {
-  JavaScript: 'https://www.javascript.com/',
-  'Node.js': 'https://nodejs.org/en/',
-  TypeScript: 'https://www.typescriptlang.org/',
-  'React.js': 'https://reactjs.org/',
-  'Redux.js': 'https://redux.js.org/',
-  MySQL: 'https://www.mysql.com/',
-  ClearDB: 'https://www.cleardb.com/',
-  SCSS: 'https://sass-lang.com/',
-  PowerShell: 'https://powershell.org/',
-  'C++': 'http://www.cplusplus.com/',
-  ITerm: 'https://iterm2.com/index.html',
-  GIT: 'https://git-scm.com/',
-  ZSH: 'https://www.zsh.org/',
-  BASH: 'https://www.gnu.org/software/bash/',
-  'AWS Amplify': 'https://aws.amazon.com/amplify/',
-  HTML: 'https://html.spec.whatwg.org/',
-  Python: 'https://www.python.org/',
-  REST: 'https://restfulapi.net/',
-  HTTP: 'https://developer.mozilla.org/en-US/docs/Web/HTTP',
-}
+export const technologies = [
+  { name: 'TypeScript', url: 'https://www.typescriptlang.org/' },
+  { name: 'React', url: 'https://react.dev/' },
+  { name: 'JavaScript', url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript' },
+  { name: 'Bun', url: 'https://bun.sh/' },
+  { name: 'Vite', url: 'https://vite.dev/' },
+  { name: 'HTML', url: 'https://html.spec.whatwg.org/' },
+  { name: 'CSS / SCSS', url: 'https://sass-lang.com/' },
+  { name: 'Python', url: 'https://www.python.org/' },
+  { name: 'Redux', url: 'https://redux.js.org/' },
+  { name: 'REST', url: 'https://developer.mozilla.org/en-US/docs/Glossary/REST' },
+  { name: 'AWS Amplify', url: 'https://aws.amazon.com/amplify/' },
+  { name: 'Bash', url: 'https://www.gnu.org/software/bash/' },
+  { name: 'Zsh', url: 'https://www.zsh.org/' },
+  { name: 'Git', url: 'https://git-scm.com/' },
+  { name: 'MySQL', url: 'https://www.mysql.com/' },
+  { name: 'Node.js', url: 'https://nodejs.org/' },
+  { name: 'HTTP', url: 'https://developer.mozilla.org/en-US/docs/Web/HTTP' },
+  { name: 'iTerm', url: 'https://iterm2.com/' },
+] satisfies { name: string; url: string }[]
 
 export const goals = {
-  myGoal: `I want to be a vital team member in your company, that's why I constantly have new
-  projects to work on all the time testing myself on new languages, Programing styles, and
-  messing with new technologies, and always reading up to the latest in tech news. I have
-  experience in being a frontend developer for 3+ years now, and currently, I'm a frontend
-  developer at Rovitracker and work on the critical frontend projects there. I love
-  react.js with a passion and it brings me joy to build projects in this framework.`,
-  simple: `I believe in simplicity to the user interface, but displaying all information to those
-  users with out cluttering there screen.`,
-  neverEnd: `This goal can never end as every project can spark new ideas and better ways to improve
-  the user interface.`,
+  myGoal:
+    'I want to be a vital member of a team, building useful frontend experiences while exploring new technologies and programming approaches. I love working with React and continually improving how I build.',
+  simple:
+    'I believe in simple user interfaces that make information easy to find without cluttering the screen.',
+  neverEnd: 'Every project can spark new ideas and better ways to improve the user interface.',
 }

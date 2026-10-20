@@ -1,75 +1,106 @@
-export const projectInfo = {
-  bestProject: ['wbcf'],
-  currentProject: ['medicy'],
-  pastOtherProject: ['ww1Sim'],
-  pastPersonalProject: ['medicyLegacy', 'wbcf', 'wwOutpostSingle', 'blackjack', 'madlibs'],
-  projects: {
-    title: {
-      blackjack: 'Black Jack',
-      ww1Sim: 'WW1 Simulation Tracker',
-      wwOutpostSingle: 'World War Outpost',
-      madlibs: 'Bottega Madlibs',
-      hjreptiles: 'HJReptiles',
-      medicy: 'Medicy',
-      medicyLegacy: 'Medicy Legacy',
-      wbcf: "Wolf's Bane Cabinetry and Furniture",
-    },
-    link: {
-      blackjack: 'https://black-jack-website.herokuapp.com/',
-      ww1Sim: 'https://ww1sim.herokuapp.com/',
-      wwOutpostSingle: 'https://wwoutpost.herokuapp.com/',
-      madlibs: 'https://madlibschallenge.herokuapp.com/',
-      hjreptiles: '',
-      medicy: 'https://medicy.herokuapp.com/',
-      medicyLegacy: '',
-      wbcf: 'https://wbcf.herokuapp.com/',
-    },
-    dedicate: {
-      blackjack: '',
-      ww1Sim: '',
-      wwOutpostSingle: '',
-      madlibs: '',
-      hjreptiles: '',
-      medicy: '',
-      medicyLegacy: '',
-      wbcf: '',
-    },
-    github: {
-      blackjack: 'https://github.com/RazorzMcLazorz/BlackJackWebsite',
-      ww1Sim: 'https://github.com/RazorzMcLazorz/WW1SimulationGame',
-      wwOutpostSingle: 'https://github.com/RazorzMcLazorz/WWOutpost',
-      madlibs: 'https://github.com/RazorzMcLazorz/Madlibs',
-      hjreptiles: 'https://github.com/RazorzMcLazorz/HJReptiles',
-      medicy: 'https://github.com/RazorzMcLazorz/medicy',
-      medicyLegacy: 'https://github.com/RazorzMcLazorz/Medicy_Legacy',
-      wbcf: 'https://github.com/RazorzMcLazorz/wbcf',
-    },
-    summary: {
-      blackjack:
-        'Complete working Black Jack Game online, it will soon be hosted as an app on google play store, after I add animations and sound to the game itself. this game is created in React.JS, it takes the complete knowledge of my coding with JavaScript and React.JS combines it into one to build this fun game.',
-      ww1Sim:
-        "My first Database Website, using Node.js and mysql hosted via ClearDB servers, The Game is for my highschool History Teacher, to help him with his WW1 game making it easier to keep track of everything while being completely online allowing use anywhere. It deals with player groups, choice decison's for the groups and resource managements per group while at the end sorting everyone into the specific ranking for the next round.",
-      wwOutpostSingle:
-        "This is a Colony Simulator Game that takes place sort of in the WW's its only 12 rounds and the goal is to gain as much supplys / research by the end of the game. this game is cut short due to the new WWOutpost2 game taking place but i will eventually finish with new ideas in the future. This dives head first into complexity with multiple types of buildings to create along with Research, Production and little fast war battles against the very simple Random Enemy/AI",
-      madlibs:
-        'Madlibs uses this.state.values and changes the state by setState to the value. Its a Madlibs game hosted on the web, it shows basic React.JS of taking input and putting in the correct spots to make a nice little story.',
-      hjreptiles:
-        'This is one of my clients websites im currently working on, right now we are in the Drafting stage so i have no pictures to display. But this website will be where he can show off all his Reptiles and sell them to his clients.',
-      medicy:
-        "I wanted to challenge myself on making an RTS-style game in the browser with a language that isn't meant to build games, For the new stack is Typescript React and CSS, I chose these languages because I want to improve my ability to work with the basics, I'm not using any library like Material-UI because that just hides stuff away from me, and instead I wanted this to be my creation if I can keep it that way. The game is meant to be a basic you maintain your kingdom and its wealth that way it can be prosperous and I plan to have events happen that can devastate your kingdom. So it is up to the player how they maintain their kingdom.",
-      medicyLegacy:
-        'Medicy Legacy was the old version of Medicy, I ran into issues with the stack I was using at the time, so I have decided to just archive this project and restart some of it in medicy again.',
-      wbcf: 'I wanted to build a custom-built landing store page for one of my friends, so I showed him things and he picked out what he liked, essentially this website is cabinetry and furniture showing pure designs, I will note none of the pictures are real photos they were all free to use stock photos.',
-    },
-    date: {
-      blackjack: 'Sep/1/2018 - Oct/15/2018',
-      ww1Sim: 'Nov/28/2018 - Aug/28/2019',
-      wwOutpostSingle: 'Sep/25/2018 - Dec/1/2018',
-      madlibs: 'Sep/2018 - Oct/2018',
-      hjreptiles: 'Planning stages',
-      medicy: 'Mar/20/2022 - current',
-      medicyLegacy: 'Apr/05/2020 - Mar/20/2022',
-      wbcf: 'Aug/10/2020 - Jan/10/2021',
-    },
-  },
+export interface PortfolioProject {
+  id: string
+  title: string
+  summary: string
+  date: string
+  github: string
+  archivedDemo?: string
 }
+
+// These original Heroku demos returned 404 when checked during the migration.
+// Keep their URLs as historical metadata, but don't send visitors to broken demos.
+export const projectGroups = [
+  {
+    title: 'Featured Project',
+    projects: [
+      {
+        id: 'wbcf',
+        title: "Wolf's Bane Cabinetry and Furniture",
+        summary:
+          'A custom landing page for a cabinetry and furniture business. I worked with a friend to select a design and built the site using freely available stock photography.',
+        date: 'August 2020 – January 2021',
+        github: 'https://github.com/RazorzMcLazorz/wbcf',
+        archivedDemo: 'https://wbcf.herokuapp.com/',
+      },
+    ],
+  },
+  {
+    title: 'Project Explorations',
+    projects: [
+      {
+        id: 'medicy',
+        title: 'Medicy',
+        summary:
+          'An RTS-style browser game built with TypeScript, React, and CSS. Players manage a kingdom and its wealth, with events that challenge how they maintain it. This project explores building game interfaces without a component library.',
+        date: 'Started March 2022',
+        github: 'https://github.com/RazorzMcLazorz/medicy',
+        archivedDemo: 'https://medicy.herokuapp.com/',
+      },
+    ],
+  },
+  {
+    title: 'Past Projects',
+    projects: [
+      {
+        id: 'ww1Sim',
+        title: 'WW1 Simulation Tracker',
+        summary:
+          'My first database-backed website, built with Node.js and MySQL for my high school history teacher. It tracks player groups, decisions, resources, and rankings for a classroom World War I simulation.',
+        date: 'November 2018 – August 2019',
+        github: 'https://github.com/RazorzMcLazorz/WW1SimulationGame',
+        archivedDemo: 'https://ww1sim.herokuapp.com/',
+      },
+    ],
+  },
+  {
+    title: 'Past Personal Projects',
+    projects: [
+      {
+        id: 'medicyLegacy',
+        title: 'Medicy Legacy',
+        summary:
+          'The original version of Medicy, archived after I decided to revisit the stack and start a new implementation.',
+        date: 'April 2020 – March 2022',
+        github: 'https://github.com/RazorzMcLazorz/Medicy_Legacy',
+      },
+      {
+        id: 'wwOutpostSingle',
+        title: 'World War Outpost',
+        summary:
+          'A twelve-round colony simulation focused on supplies, research, production, buildings, and small battles against a simple randomized enemy.',
+        date: 'September – December 2018',
+        github: 'https://github.com/RazorzMcLazorz/WWOutpost',
+        archivedDemo: 'https://wwoutpost.herokuapp.com/',
+      },
+      {
+        id: 'blackjack',
+        title: 'Black Jack',
+        summary:
+          'An online Black Jack game combining JavaScript and React to create a playable browser-based card game.',
+        date: 'September – October 2018',
+        github: 'https://github.com/RazorzMcLazorz/BlackJackWebsite',
+        archivedDemo: 'https://black-jack-website.herokuapp.com/',
+      },
+      {
+        id: 'madlibs',
+        title: 'Bottega Madlibs',
+        summary:
+          'A browser-based Madlibs game that uses React state to turn user input into a story.',
+        date: 'September – October 2018',
+        github: 'https://github.com/RazorzMcLazorz/Madlibs',
+        archivedDemo: 'https://madlibschallenge.herokuapp.com/',
+      },
+    ],
+  },
+] satisfies { title: string; projects: PortfolioProject[] }[]
+
+// Retained from the original portfolio; not yet part of the published project groups.
+export const plannedProjects: PortfolioProject[] = [
+  {
+    id: 'hjreptiles',
+    title: 'HJReptiles',
+    summary: 'A planned client website to showcase reptiles and connect with customers.',
+    date: 'Planning stages',
+    github: 'https://github.com/RazorzMcLazorz/HJReptiles',
+  },
+]

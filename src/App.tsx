@@ -1,35 +1,29 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { isMobile } from 'react-device-detect'
-import routes from './constants/routes'
-import Home from './components/home/Home'
-import HomeMob from './components/home/mobile/HomeMob'
-import Projects from './components/projects/Projects'
-import ProjectMob from './components/projects/mobile/ProjectMob'
-import Skills from './components/skills/Skills'
-import SkillsMob from './components/skills/mobile/SkillsMob'
+import CssBaseline from '@mui/material/CssBaseline'
+import { ThemeProvider } from '@mui/material/styles'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Layout from './components/common/Layout'
 import Contact from './components/contact/Contact'
-import ContactMob from './components/contact/mobile/ContactMob'
+import Home from './components/home/Home'
+import Projects from './components/projects/Projects'
+import Skills from './components/skills/Skills'
+import NotFound from './components/NotFound'
+import theme from './theme'
 
-function App() {
+export default function App() {
   return (
-    <BrowserRouter>
-      {isMobile ? (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
         <Routes>
-          <Route path={routes.home} element={<HomeMob />} />
-          <Route path={routes.projects} element={<ProjectMob />} />
-          <Route path={routes.skills} element={<SkillsMob />} />
-          <Route path={routes.contact} element={<ContactMob />} />
+          <Route element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path='projects' element={<Projects />} />
+            <Route path='skills' element={<Skills />} />
+            <Route path='contact' element={<Contact />} />
+            <Route path='*' element={<NotFound />} />
+          </Route>
         </Routes>
-      ) : (
-        <Routes>
-          <Route path={routes.home} element={<Home />} />
-          <Route path={routes.projects} element={<Projects />} />
-          <Route path={routes.skills} element={<Skills />} />
-          <Route path={routes.contact} element={<Contact />} />
-        </Routes>
-      )}
-    </BrowserRouter>
+      </BrowserRouter>
+    </ThemeProvider>
   )
 }
-
-export default App

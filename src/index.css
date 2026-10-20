@@ -1,0 +1,236 @@
+:root {
+  color-scheme: dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-width: 320px;
+  background-image: radial-gradient(ellipse at top right, #44d9e60b, transparent 65%);
+}
+
+a {
+  color: #44d9e6;
+  text-underline-offset: 0.2em;
+}
+a:hover {
+  color: #9aebf1;
+}
+:focus-visible {
+  outline: 2px solid #44d9e6;
+  outline-offset: 5px;
+}
+p {
+  line-height: 1.75;
+}
+
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 1rem;
+  z-index: 10;
+  padding: 0.75rem 1rem;
+  color: #2a2a2a;
+  background: #44d9e6;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+.site-header {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.25rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  border-bottom: 1px solid #44d9e633;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: #f5f5f5;
+  font-weight: 600;
+}
+.brand img {
+  border-radius: 50%;
+}
+.site-header nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+.site-header nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: #c2c2c2;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+}
+.site-header nav a:hover,
+.site-header nav a[aria-current='page'] {
+  color: #44d9e6;
+  border-bottom-color: #44d9e6;
+}
+.page-shell {
+  width: min(100% - 4rem, 1080px);
+  min-height: calc(100svh - 180px);
+  margin: 0 auto;
+  padding: 3rem 0;
+}
+.page-shell:focus {
+  outline: none;
+}
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 5rem 0;
+}
+.hero p {
+  margin: 0;
+}
+.eyebrow {
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.signature {
+  align-self: flex-end;
+  margin-top: 1rem;
+}
+.actions,
+.social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.content-grid,
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+.panel {
+  padding: 2rem;
+  min-width: 0;
+}
+.panel p {
+  color: #c2c2c2;
+}
+.panel p:last-child {
+  margin-bottom: 0;
+}
+.section {
+  margin-top: 3rem;
+}
+.section-title {
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.5rem !important;
+  border-bottom: 1px solid #44d9e655;
+}
+.page-intro {
+  color: #c2c2c2;
+  margin-bottom: 2.5rem;
+}
+.technology-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.technology-list a {
+  min-height: 36px;
+}
+.project-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.project-card p {
+  margin: 0;
+}
+.project-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-top: auto;
+  padding-top: 1rem;
+}
+.reference {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-style: normal;
+  overflow-wrap: anywhere;
+}
+.reference + .reference {
+  border-top: 1px solid #ffffff1f;
+  padding-top: 1.25rem;
+  margin-top: 1.25rem;
+}
+.reference span {
+  color: #c2c2c2;
+}
+.reference a {
+  padding: 0.25rem 0;
+}
+.email-link {
+  display: inline-block;
+  margin-top: 1.5rem;
+  overflow-wrap: anywhere;
+}
+.resume-preview {
+  display: block;
+  width: 100%;
+  height: 650px;
+  margin-top: 2rem;
+  border: 1px solid #ffffff1f;
+  border-radius: 6px;
+}
+.site-footer {
+  padding: 1.5rem;
+  text-align: center;
+  color: #c2c2c2;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 700px) {
+  .site-header {
+    padding: 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .site-header nav {
+    order: 3;
+    width: 100%;
+    gap: 1.25rem;
+  }
+  .page-shell {
+    width: calc(100% - 2rem);
+    padding-top: 2rem;
+  }
+  .hero {
+    padding: 2.5rem 0;
+  }
+  .content-grid,
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+  .panel {
+    padding: 1.5rem;
+  }
+  .resume-preview {
+    height: 450px;
+  }
+}
