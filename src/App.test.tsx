@@ -113,6 +113,7 @@ describe('portfolio', () => {
     for (const [label, id] of [
       ['Experience', 'workexperience'],
       ['Projects', 'projects'],
+      ['Contributions', 'contributions'],
       ['Languages', 'languages'],
       ['About Me', 'aboutme'],
       ['Resume', 'resume'],
@@ -123,7 +124,7 @@ describe('portfolio', () => {
       expect(window.location.hash).toBe(`#${id}`)
       expect(Element.prototype.scrollIntoView).toHaveBeenLastCalledWith({ behavior: 'auto' })
     }
-    expect(Element.prototype.scrollIntoView).toHaveBeenCalledTimes(6)
+    expect(Element.prototype.scrollIntoView).toHaveBeenCalledTimes(7)
     expect(window.scrollTo).not.toHaveBeenCalled()
   })
 
@@ -152,6 +153,144 @@ describe('portfolio', () => {
     expect(document.querySelector('a[href*="allergenbuddy.com"]')).not.toBeInTheDocument()
     expect(document.title).toBe('Projects | Nathaniel P. Young')
   })
+
+  it.each(['/', '/projects'])('separates active and past projects on %s', (path) => {
+    renderPage(path)
+    const active = within(screen.getByRole('region', { name: 'Active Projects' }))
+    const past = within(screen.getByRole('region', { name: 'Past Projects' }))
+    expect(active.getAllByRole('article')).toHaveLength(4)
+    const artisanRayTech = within(
+      active.getByRole('article', { name: 'Artisan Ray Tech Home Page' }),
+    )
+    expect(artisanRayTech.getByText('Company project')).toBeVisible()
+    expect(
+      artisanRayTech.getByRole('link', { name: /Visit Artisan Ray Tech Home Page/ }),
+    ).toHaveAttribute('href', 'https://artisanraytech.com')
+    expect(artisanRayTech.getByText('Private repository')).toBeVisible()
+    const gameMapster = within(active.getByRole('article', { name: 'Game Mapster' }))
+    expect(
+      gameMapster.getByRole('link', { name: 'Visit Game Mapster (opens in a new tab)' }),
+    ).toHaveAttribute('href', 'https://gamemapster.com')
+    expect(gameMapster.getByText('Private repository')).toBeVisible()
+    expect(
+      within(active.getByRole('article', { name: 'Wild Haven / Wolf Haven' })).getByText(
+        /Rewrote the entire website in React/,
+      ),
+    ).toBeVisible()
+    for (const title of [
+      'Artisan Ray Tech Home Page',
+      'Game Mapster',
+      'Wild Haven / Wolf Haven',
+      'Portfolio',
+    ]) {
+      expect(active.getByRole('article', { name: title })).toBeVisible()
+      expect(past.queryByRole('article', { name: title })).not.toBeInTheDocument()
+      expect(
+        within(active.getByRole('article', { name: title })).getByText(
+          title === 'Portfolio' ? 'Personal project' : 'Company project',
+        ),
+      ).toBeVisible()
+    }
+    expect(past.getAllByRole('article')).toHaveLength(8)
+    for (const title of ['Allergen Buddy', 'Medicy', 'Medicy Legacy', 'Bottega Madlibs']) {
+      expect(past.getByRole('article', { name: title })).toBeVisible()
+    }
+    expect(
+      active.getByRole('heading', { name: 'Active Projects', level: path === '/' ? 3 : 2 }),
+    ).toBeVisible()
+    expect(
+      active.getByRole('heading', { name: 'Portfolio', level: path === '/' ? 4 : 3 }),
+    ).toBeVisible()
+    expect(screen.queryByRole('article', { name: 'HJReptiles' })).not.toBeInTheDocument()
+  })
+
+  it.each(['/', '/projects'])(
+    'shows Game Mapster highlights in an independent floating panel on %s',
+    async (path) => {
+      const user = userEvent.setup()
+      renderPage(path)
+      const card = within(screen.getByRole('article', { name: 'Game Mapster' }))
+      const toggle = card.getByRole('button', { name: 'Project highlights' })
+      expect(toggle).toHaveAttribute('aria-expanded', 'false')
+      expect(screen.queryByText(/Built a React and TypeScript map viewer/)).not.toBeInTheDocument()
+      await user.click(toggle)
+      const dialog = screen.getByRole('dialog', { name: 'Game Mapster highlights' })
+      expect(toggle).toHaveAttribute('aria-expanded', 'true')
+      expect(within(dialog).getAllByRole('listitem')).toHaveLength(6)
+      expect(
+        within(dialog).getByRole('heading', {
+          name: 'Game Mapster highlights',
+          level: path === '/' ? 5 : 4,
+        }),
+      ).toBeVisible()
+      for (const title of [
+        'Interactive map exploration',
+        'Locations and community tools',
+        'Accounts and discovery tracking',
+        'Accessible map controls',
+        'Map-loading performance',
+        'Testing and delivery',
+      ]) {
+        expect(within(dialog).getByText(`${title}:`)).toBeVisible()
+      }
+      await user.keyboard('{Escape}')
+      await waitFor(() => expect(dialog).not.toBeInTheDocument())
+      expect(toggle).toHaveFocus()
+      expect(toggle).toHaveAttribute('aria-expanded', 'false')
+      expect(
+        within(screen.getByRole('article', { name: 'Wild Haven / Wolf Haven' })).getByRole(
+          'button',
+          { name: 'Project highlights' },
+        ),
+      ).toHaveAttribute('aria-expanded', 'false')
+      expect(card.getByRole('link', { name: /Visit Game Mapster/ })).toHaveAttribute(
+        'href',
+        'https://gamemapster.com',
+      )
+    },
+  )
+
+  it.each(['/', '/projects'])(
+    'shows Wild Haven highlights in a floating panel on %s',
+    async (path) => {
+      const user = userEvent.setup()
+      renderPage(path)
+      const card = within(screen.getByRole('article', { name: 'Wild Haven / Wolf Haven' }))
+      const toggle = card.getByRole('button', { name: 'Project highlights' })
+      expect(toggle).toHaveAttribute('aria-expanded', 'false')
+      expect(
+        screen.queryByText(/Built artist tools, custom character previews/),
+      ).not.toBeInTheDocument()
+      const portfolio = within(screen.getByRole('article', { name: 'Portfolio' }))
+      expect(
+        portfolio.queryByRole('button', { name: 'Project highlights' }),
+      ).not.toBeInTheDocument()
+      await user.click(toggle)
+      const dialog = screen.getByRole('dialog', { name: 'Wild Haven / Wolf Haven highlights' })
+      expect(toggle).toHaveAttribute('aria-expanded', 'true')
+      expect(within(dialog).getAllByRole('listitem')).toHaveLength(6)
+      expect(
+        within(dialog).getByRole('heading', {
+          name: 'Wild Haven / Wolf Haven highlights',
+          level: path === '/' ? 5 : 4,
+        }),
+      ).toBeVisible()
+      for (const contribution of [
+        /Rewrote the entire legacy PHP\/MySQL website/,
+        /Developed character profiles, inventories, quests/,
+        /Built artist tools, custom character previews/,
+        /Bun-based Appwrite Functions/,
+        /Storybook coverage/,
+        /legacy-data archive importer/,
+      ]) {
+        expect(within(dialog).getByText(contribution)).toBeVisible()
+      }
+      await user.click(within(dialog).getByRole('button', { name: 'Close project highlights' }))
+      await waitFor(() => expect(dialog).not.toBeInTheDocument())
+      expect(toggle).toHaveFocus()
+      expect(card.getByText(/Rewrote the entire website in React/)).toBeVisible()
+    },
+  )
 
   it('renders current skills on a direct URL', () => {
     renderPage('/skills')

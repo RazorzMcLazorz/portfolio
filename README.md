@@ -106,6 +106,58 @@ or page; the panels close with their close button, Escape, or a click outside. C
 project statuses, remaining education/employment details, reference contact details, and the résumé
 before publishing; the résumé PDF has not been updated to match these work summaries.
 
+Projects are split into **Active Projects** and **Past Projects** on both the home page and
+`/projects`. Nate confirmed Wild Haven / Wolf Haven and Portfolio are active; the other eight
+published projects are past work. To move a project between sections, change its `status` (`active`
+or `past`) in `src/components/projects/constants.ts`. Planned projects remain unpublished.
+
+Nate confirmed Wild Haven / Wolf Haven is a complete rewrite, not just a frontend migration. Its
+project highlights summarize the local frontend and backend source/docs and open in the same
+floating panel as work highlights. Add an optional `highlights` array to another project to enable
+the same control without resizing the cards or page.
+
+## Contribution calendar
+
+The homepage combines GitHub (`RazorzMcLazorz`) and Gitea
+(`https://gitea.natelinyoungnas.com/RazorzMcLazorz`) in a rolling 365-day calendar. Visitors can
+switch between combined and individual-source views, select a day for counts, and use arrow keys (or
+Home/End) to navigate the grid. Dates and Gitea timestamp buckets are normalized to UTC.
+
+Only daily counts, date ranges, source status, and sync timestamps are published in
+`src/components/contributions/data.json`. Private repository names, commit messages, and credentials
+are never included. Nate opted into publishing private activity counts. GitHub contribution totals
+and Gitea activity counts follow different rules, and mirrored work can count on both services; the
+combined number is not a deduplicated commit count. Private counts depend on token access and each
+service's visibility settings. Gitea's heatmap API only retains roughly the past year, so older
+years are not offered.
+
+Refresh locally using existing authenticated GitHub and tea CLI logins (tokens stay in memory and
+are not printed or written into project configuration):
+
+```sh
+bun run contributions:sync --local
+```
+
+For deployment, set these **build-only secrets** in Netlify's environment settings (or your build
+runner), using dedicated, least-privilege tokens for the profile owner:
+
+- `CONTRIBUTIONS_GITHUB_TOKEN`: GitHub token with `read:user` for private contribution counts.
+- `CONTRIBUTIONS_GITEA_TOKEN`: Gitea token with `read:user` and permission to view the relevant
+  activity.
+
+`.env.example` documents the names for local use. Never prefix these with `VITE_`, commit tokens, or
+use a Gitea administrator token. The synchronizer calls only GitHub's contribution-calendar query
+and Gitea's user heatmap endpoint, not repository-content APIs. Redirects are rejected so
+credentials are not forwarded to another host. Existing local CLI credentials are read **only** with
+`--local`.
+
+`bun run build` refreshes configured sources before building. Without tokens, it uses the checked-in
+snapshot; if a service fails, it retains its last successful counts and marks that source stale (or
+unavailable if it has never synced). Refreshing does not happen in visitors' browsers. Counts update
+on deployments, not continuously: add a scheduled rebuild in your hosting service if you want daily
+refreshes. The UI displays each source's last sync date. On static hosts, deploy the usual `dist/`
+folder—no server function or browser-side API credentials are needed.
+
 ## Deployment
 
 Deploy **`dist/`**, not CRA's old `build/` directory. Configure the host to serve `index.html` for

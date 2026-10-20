@@ -391,6 +391,103 @@ p {
   flex-direction: column;
   gap: 0.75rem;
 }
+.contribution-toolbar,
+.contribution-views {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+.contribution-toolbar {
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+.contribution-toolbar p {
+  margin-bottom: 0;
+}
+.contribution-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 0.5rem;
+}
+.contribution-graph {
+  display: flex;
+  gap: 4px;
+  width: max-content;
+  padding-right: 1.25rem;
+}
+.contribution-week,
+.contribution-weekdays {
+  display: grid;
+  grid-template-rows: 1.25rem repeat(7, 14px);
+  gap: 4px;
+}
+.contribution-week {
+  width: 14px;
+}
+.contribution-weekdays {
+  width: 2rem;
+  margin-right: 0.25rem;
+}
+.contribution-month,
+.contribution-weekdays {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+.contribution-month {
+  white-space: nowrap;
+}
+.contribution-day {
+  display: block;
+  width: 14px;
+  height: 14px;
+  padding: 0;
+  border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--accent) 7%, transparent);
+}
+button.contribution-day {
+  cursor: pointer;
+}
+.contribution-day[data-level='1'] {
+  background: color-mix(in srgb, var(--accent) 25%, transparent);
+}
+.contribution-day[data-level='2'] {
+  background: color-mix(in srgb, var(--accent) 50%, transparent);
+}
+.contribution-day[data-level='3'] {
+  background: color-mix(in srgb, var(--accent) 75%, transparent);
+}
+.contribution-day[data-level='4'] {
+  background: var(--accent);
+}
+.contribution-day:focus-visible,
+.contribution-day[aria-pressed='true'] {
+  position: relative;
+  z-index: 1;
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+.contribution-legend {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 4px;
+  margin: 0.75rem 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+.contribution-selection {
+  min-height: 3.5rem;
+}
+.contribution-profiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 2rem;
+}
+.contribution-profiles p {
+  margin: 0;
+}
 .project-card p {
   margin: 0;
 }

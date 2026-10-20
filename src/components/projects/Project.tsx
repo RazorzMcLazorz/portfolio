@@ -3,21 +3,36 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
+import HighlightsPopover from '../common/HighlightsPopover'
 import type { PortfolioProject } from './constants'
 
-export default function Project({ project }: { project: PortfolioProject }) {
+export default function Project({
+  project,
+  headingLevel = 'h3',
+}: {
+  project: PortfolioProject
+  headingLevel?: 'h3' | 'h4'
+}) {
   return (
     <Paper
       component='article'
       className='panel project-card'
       aria-labelledby={`project-${project.id}`}>
-      <Typography variant='h3' id={`project-${project.id}`}>
+      <Typography component={headingLevel} variant='h3' id={`project-${project.id}`}>
         {project.title}
       </Typography>
       <Typography component='p' variant='body2' color='text.secondary'>
         {project.date}
       </Typography>
       <p>{project.summary}</p>
+      {project.highlights && project.highlights.length > 0 && (
+        <HighlightsPopover
+          title={`${project.title} highlights`}
+          label='Project highlights'
+          highlights={project.highlights}
+          headingLevel={headingLevel === 'h4' ? 'h5' : 'h4'}
+        />
+      )}
       <div className='project-actions'>
         {project.github && (
           <Button

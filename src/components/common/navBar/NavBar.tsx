@@ -8,6 +8,7 @@ import { SceneryContext } from '../../../SceneryContext'
 const sections = [
   ['workexperience', 'Experience'],
   ['projects', 'Projects'],
+  ['contributions', 'Contributions'],
   ['languages', 'Languages'],
   ['aboutme', 'About Me'],
   ['resume', 'Resume'],

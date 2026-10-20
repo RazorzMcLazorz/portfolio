@@ -14,6 +14,7 @@ test('navigation works on desktop and mobile without browser errors', async ({ p
   for (const [name, id] of [
     ['Experience', 'workexperience'],
     ['Projects', 'projects'],
+    ['Contributions', 'contributions'],
     ['Languages', 'languages'],
     ['About Me', 'aboutme'],
     ['Resume', 'resume'],
@@ -98,6 +99,127 @@ for (const [company, summary, employmentDates, highlightCount] of [
     expect(await layout()).toEqual(initialLayout)
   })
 }
+
+test('active and past projects are separated on the home page and projects route', async ({
+  page,
+}) => {
+  for (const path of ['/', '/projects']) {
+    await page.goto(path)
+    const active = page.getByRole('region', { name: 'Active Projects' })
+    const past = page.getByRole('region', { name: 'Past Projects' })
+    await expect(active.getByRole('article')).toHaveCount(4)
+    const artisanRayTech = active.getByRole('article', { name: 'Artisan Ray Tech Home Page' })
+    await expect(artisanRayTech).toBeVisible()
+    await expect(
+      artisanRayTech.getByRole('link', { name: /Visit Artisan Ray Tech Home Page/ }),
+    ).toHaveAttribute('href', 'https://artisanraytech.com')
+    await expect(artisanRayTech.getByText('Private repository')).toBeVisible()
+    await expect(past.getByRole('article', { name: 'Artisan Ray Tech Home Page' })).toHaveCount(0)
+    const gameMapster = active.getByRole('article', { name: 'Game Mapster' })
+    await expect(gameMapster).toBeVisible()
+    await expect(
+      gameMapster.getByRole('link', { name: 'Visit Game Mapster (opens in a new tab)' }),
+    ).toHaveAttribute('href', 'https://gamemapster.com')
+    await expect(past.getByRole('article', { name: 'Game Mapster' })).toHaveCount(0)
+    await expect(active.getByRole('article', { name: 'Wild Haven / Wolf Haven' })).toBeVisible()
+    await expect(active.getByRole('article', { name: 'Portfolio' })).toBeVisible()
+    await expect(past.getByRole('article')).toHaveCount(8)
+    await expect(past.getByRole('article', { name: 'Allergen Buddy' })).toBeVisible()
+    await expect(past.getByRole('article', { name: 'Medicy', exact: true })).toBeVisible()
+    expect((await active.boundingBox())!.y).toBeLessThan((await past.boundingBox())!.y)
+    expect(
+      await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth),
+    ).toBe(true)
+  }
+})
+
+for (const [title, summary, path] of [
+  ['Game Mapster', /An interactive game-map website/, '/#projects'],
+  ['Game Mapster', /An interactive game-map website/, '/projects'],
+  ['Wild Haven / Wolf Haven', /Rewrote the entire website in React/, '/#projects'],
+  ['Wild Haven / Wolf Haven', /Rewrote the entire website in React/, '/projects'],
+] as const) {
+  test(`${title} project highlights float without resizing cards on ${path}`, async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await page.goto(path)
+    await page.evaluate(() => document.fonts.ready)
+    const card = page.getByRole('article', { name: title, includeHidden: true })
+    const toggle = card.getByRole('button', { name: 'Project highlights', includeHidden: true })
+    const dialog = page.getByRole('dialog', { name: `${title} highlights` })
+    await toggle.scrollIntoViewIfNeeded()
+    const layout = () =>
+      page.evaluate(() => ({
+        pageHeight: document.documentElement.scrollHeight,
+        cardHeights: Array.from(
+          document.querySelectorAll('.project-card'),
+          (element) => element.getBoundingClientRect().height,
+        ),
+      }))
+    const initial = await layout()
+    await expect(dialog).toBeHidden()
+    await toggle.click()
+    await expect(dialog).toBeVisible()
+    await expect(dialog.getByRole('listitem')).toHaveCount(6)
+    expect(await layout()).toEqual(initial)
+    await dialog.evaluate((element) => {
+      element.scrollTop = element.scrollHeight
+    })
+    await expect(dialog.getByRole('listitem').last()).toBeInViewport()
+    await page.keyboard.press('Escape')
+    await expect(dialog).toBeHidden()
+    await expect(toggle).toBeFocused()
+    await toggle.press('Enter')
+    await expect(dialog).toBeVisible()
+    await dialog.getByRole('button', { name: 'Close project highlights' }).click()
+    await expect(dialog).toBeHidden()
+    await expect(toggle).toBeFocused()
+    expect(await layout()).toEqual(initial)
+    await expect(card.getByText(summary)).toBeVisible()
+  })
+}
+
+test('contributions combine both services with accessible source and day controls', async ({
+  page,
+}) => {
+  await page.goto('/#contributions')
+  const section = page.getByRole('region', { name: 'Contributions', exact: true })
+  const controls = section.getByRole('group', { name: 'Contribution source' })
+  const count = async () =>
+    Number(
+      (await section.getByRole('heading', { name: /recorded contributions/ }).innerText()).replace(
+        /[^\d]/g,
+        '',
+      ),
+    )
+  const combined = await count()
+  await controls.getByRole('button', { name: 'GitHub' }).click()
+  await expect(controls.getByRole('button', { name: 'GitHub' })).toHaveAttribute(
+    'aria-pressed',
+    'true',
+  )
+  const github = await count()
+  await controls.getByRole('button', { name: 'Gitea' }).click()
+  const gitea = await count()
+  expect(combined).toBe(github + gitea)
+  await controls.getByRole('button', { name: 'Combined' }).click()
+  const calendar = section.getByRole('group', { name: 'Daily contribution calendar' })
+  const days = calendar.getByRole('button')
+  await expect(days).toHaveCount(365)
+  await days.first().focus()
+  await page.keyboard.press('End')
+  await expect(days.last()).toBeFocused()
+  await expect(section.getByRole('status')).toContainText('GitHub:')
+  await page.keyboard.press('Home')
+  await expect(days.first()).toBeFocused()
+  await expect(section.getByRole('status')).toContainText('Gitea:')
+  expect(await calendar.locator('button[tabindex="0"]').count()).toBe(1)
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(
+    true,
+  )
+  await expect(
+    section.getByRole('link', { name: 'Gitea profile (opens in a new tab)' }),
+  ).toHaveAttribute('href', 'https://gitea.natelinyoungnas.com/RazorzMcLazorz')
+})
 
 test('direct route reloads, résumé asset, and downloads work', async ({ page, request }) => {
   await page.goto('/contact')

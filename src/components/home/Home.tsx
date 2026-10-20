@@ -2,6 +2,7 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
+import Contributions from '../contributions/Contributions'
 import ContactInfo from '../contact/ContactInfo'
 import References from '../contact/References'
 import ResumeInfo from '../contact/ResumeInfo'
@@ -43,6 +44,7 @@ export default function Home() {
       </section>
       <WorkExperience />
       <Projects embedded />
+      <Contributions />
       <section
         className='landing-section'
         id='languages'

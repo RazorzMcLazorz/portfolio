@@ -11,7 +11,8 @@
   "scripts": {
     "dev": "vite",
     "start": "vite",
-    "build": "bun run typecheck && vite build",
+    "build": "bun run contributions:sync && bun run typecheck && vite build",
+    "contributions:sync": "bun scripts/sync-contributions.ts",
     "preview": "vite preview",
     "typecheck": "tsc -b",
     "lint": "eslint . --max-warnings 0",

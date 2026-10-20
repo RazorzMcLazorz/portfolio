@@ -19,28 +19,23 @@ export default function Projects({ embedded = false }: { embedded?: boolean }) {
       <p className={embedded ? 'section-intro' : 'page-intro'}>
         A selection of websites, games, and experiments I've built.
       </p>
-      {embedded ? (
-        <div className='project-grid'>
-          {projectGroups
-            .flatMap(({ projects }) => projects)
-            .map((project) => (
-              <Project key={project.id} project={project} />
-            ))}
-        </div>
-      ) : (
-        projectGroups.map(({ title, projects }) => (
+      {projectGroups
+        .filter(({ projects }) => projects.length > 0)
+        .map(({ title, projects }) => (
           <section className='section' key={title} aria-label={title}>
-            <Typography variant='h2' className='project-group-title'>
+            <Typography
+              component={embedded ? 'h3' : 'h2'}
+              variant='h2'
+              className='project-group-title'>
               {title}
             </Typography>
             <div className='project-grid'>
               {projects.map((project) => (
-                <Project key={project.id} project={project} />
+                <Project key={project.id} project={project} headingLevel={embedded ? 'h4' : 'h3'} />
               ))}
             </div>
           </section>
-        ))
-      )}
+        ))}
     </section>
   )
 }

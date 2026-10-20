@@ -1,11 +1,6 @@
-import ArrowRightIcon from '@mui/icons-material/ArrowRight'
-import CloseIcon from '@mui/icons-material/Close'
-import Button from '@mui/material/Button'
-import IconButton from '@mui/material/IconButton'
 import Paper from '@mui/material/Paper'
-import Popover from '@mui/material/Popover'
 import Typography from '@mui/material/Typography'
-import { useId, useState } from 'react'
+import HighlightsPopover from '../common/HighlightsPopover'
 
 // Dyno Nobel's current status was confirmed by Nate in October 2026.
 const experiences = [
@@ -84,88 +79,6 @@ const experiences = [
   },
 ]
 
-function WorkHighlights({
-  company,
-  highlights,
-}: {
-  company: string
-  highlights: { title: string; description: string }[]
-}) {
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
-  const id = useId()
-  const open = Boolean(anchorEl)
-
-  return (
-    <>
-      <Button
-        fullWidth
-        aria-expanded={open}
-        aria-haspopup='dialog'
-        aria-controls={open ? id : undefined}
-        onClick={(event) => setAnchorEl(event.currentTarget)}
-        startIcon={<ArrowRightIcon sx={{ transform: open ? 'rotate(90deg)' : 'none' }} />}
-        sx={{
-          justifyContent: 'flex-start',
-          padding: '0.75rem 0',
-          borderTop: '1px solid',
-          borderColor: 'divider',
-          borderRadius: 0,
-          color: 'text.primary',
-        }}>
-        Work highlights
-      </Button>
-      <Popover
-        open={open}
-        anchorEl={anchorEl}
-        onClose={() => setAnchorEl(null)}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'left' }}
-        marginThreshold={16}
-        slotProps={{
-          paper: {
-            id,
-            role: 'dialog',
-            'aria-modal': true,
-            'aria-labelledby': `${id}-title`,
-            sx: {
-              width: 'min(34rem, calc(100vw - 32px))',
-              maxHeight: 'min(28rem, calc(100dvh - 32px))',
-              padding: 3,
-              overscrollBehavior: 'contain',
-            },
-          },
-        }}>
-        <header
-          style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
-          <Typography component='h4' variant='h6' id={`${id}-title`}>
-            {company} work highlights
-          </Typography>
-          <IconButton
-            aria-label='Close work highlights'
-            onClick={() => setAnchorEl(null)}
-            sx={{ marginLeft: 'auto' }}>
-            <CloseIcon />
-          </IconButton>
-        </header>
-        <Typography
-          component='ul'
-          sx={{
-            margin: 0,
-            paddingLeft: 2.5,
-            color: 'text.secondary',
-            '& li + li': { marginTop: 1.5 },
-          }}>
-          {highlights.map(({ title, description }) => (
-            <li key={title}>
-              <strong>{title}:</strong> {description}
-            </li>
-          ))}
-        </Typography>
-      </Popover>
-    </>
-  )
-}
-
 export default function WorkExperience() {
   return (
     <section
@@ -187,7 +100,11 @@ export default function WorkExperience() {
             <p className='eyebrow'>{role}</p>
             <Typography variant='h3'>{company}</Typography>
             <p>{description}</p>
-            <WorkHighlights company={company} highlights={highlights} />
+            <HighlightsPopover
+              title={`${company} work highlights`}
+              label='Work highlights'
+              highlights={highlights}
+            />
             <Typography component='p' variant='body2' sx={{ marginTop: 'auto', paddingTop: 2 }}>
               {dates}
             </Typography>
