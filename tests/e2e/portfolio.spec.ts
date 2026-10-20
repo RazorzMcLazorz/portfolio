@@ -33,6 +33,72 @@ test('navigation works on desktop and mobile without browser errors', async ({ p
   expect(errors).toEqual([])
 })
 
+for (const [company, summary, employmentDates, highlightCount] of [
+  ['Dyno Nobel', /Build and modernize frontend applications/, 'May 2021 – Present', 5],
+  ['RoviTracker', /Started in QA automation/, 'November 2018 – March 2022', 6],
+] as const) {
+  test(`${company} work highlights overlay the page without changing its layout`, async ({
+    page,
+  }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await page.goto('/#workexperience')
+    await page.evaluate(() => document.fonts.ready)
+    const card = page.getByRole('article', { name: company, includeHidden: true })
+    const toggle = card.getByRole('button', { name: 'Work highlights', includeHidden: true })
+    const dialog = page.getByRole('dialog', { name: `${company} work highlights` })
+    const highlights = dialog.getByRole('list')
+    const overview = card.getByText(summary)
+    const dates = card.getByText(employmentDates)
+    await expect(overview).toBeVisible()
+    await expect(dates).toBeVisible()
+    await toggle.scrollIntoViewIfNeeded()
+    const layout = () =>
+      page.evaluate(() => ({
+        pageHeight: document.documentElement.scrollHeight,
+        cardHeights: Array.from(
+          document.querySelectorAll('.experience-card'),
+          (element) => element.getBoundingClientRect().height,
+        ),
+      }))
+    const initialLayout = await layout()
+    await expect(toggle).toHaveAttribute('aria-expanded', 'false')
+    await expect(dialog).toBeHidden()
+    await toggle.click()
+    await expect(dialog).toBeVisible()
+    await expect(toggle).toHaveAttribute('aria-expanded', 'true')
+    await expect(highlights.getByRole('listitem')).toHaveCount(highlightCount)
+    expect(await layout()).toEqual(initialLayout)
+    const bounds = (await dialog.boundingBox())!
+    expect(bounds.x).toBeGreaterThanOrEqual(16)
+    expect(bounds.y).toBeGreaterThanOrEqual(16)
+    expect(bounds.x + bounds.width).toBeLessThanOrEqual(page.viewportSize()!.width - 16)
+    expect(bounds.y + bounds.height).toBeLessThanOrEqual(page.viewportSize()!.height - 16)
+    await expect(dialog).toHaveCSS('overflow-y', 'auto')
+    await dialog.evaluate((element) => {
+      element.scrollTop = element.scrollHeight
+    })
+    await expect(highlights.getByRole('listitem').last()).toBeInViewport()
+    await page.keyboard.press('Escape')
+    await expect(dialog).toBeHidden()
+    await expect(toggle).toBeFocused()
+    await toggle.focus()
+    await toggle.press('Enter')
+    await expect(dialog).toBeVisible()
+    await dialog.getByRole('button', { name: 'Close work highlights' }).click()
+    await expect(dialog).toBeHidden()
+    await expect(toggle).toBeFocused()
+    await toggle.press('Space')
+    await expect(dialog).toBeVisible()
+    await page.mouse.click(1, 1)
+    await expect(dialog).toBeHidden()
+    await expect(toggle).toBeFocused()
+    await expect(toggle).toHaveAttribute('aria-expanded', 'false')
+    await expect(overview).toBeVisible()
+    await expect(dates).toBeVisible()
+    expect(await layout()).toEqual(initialLayout)
+  })
+}
+
 test('direct route reloads, résumé asset, and downloads work', async ({ page, request }) => {
   await page.goto('/contact')
   await page.reload()

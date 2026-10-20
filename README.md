@@ -97,10 +97,14 @@ source link. Private repositories are labeled without exposing source links. The
 demos returned 404 during migration, so their URLs are retained as `archivedDemo` metadata but are
 not clickable. Allergen Buddy's domain failed DNS resolution during the theme migration, so its URL
 is also retained only as archived metadata. Wild Haven responded successfully and keeps its live
-link. `plannedProjects` retains the unpublished HJReptiles entry. Employment dates, including Dyno
-Nobel's “May 2021 – Present,” come from the 2023 concept and have not been independently updated.
-Confirm current project statuses, education/employment details, reference contact details, and the
-résumé before publishing; the migration does not verify or invent updated biographical information.
+link. `plannedProjects` retains the unpublished HJReptiles entry. Dyno Nobel's work summary was
+updated with Nate's 2021–2026 contributions, and Nate confirmed the role is current in October 2026
+(“May 2021 – Present”). RoviTracker's work summary is based on Nate's commits and source code in the
+local frontend and QA repositories, covering 2020–2021; its employment dates remain from the 2023
+concept. Both work cards open highlights in bounded, scrollable overlays without resizing the cards
+or page; the panels close with their close button, Escape, or a click outside. Confirm current
+project statuses, remaining education/employment details, reference contact details, and the résumé
+before publishing; the résumé PDF has not been updated to match these work summaries.
 
 ## Deployment
 

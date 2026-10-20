@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, within } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import App from './App'
@@ -39,6 +39,70 @@ describe('portfolio', () => {
       'https://react.dev/',
     )
     expect(document.title).toBe('Frontend Developer | Nathaniel P. Young')
+  })
+
+  it('lets visitors expand work highlights while keeping the overview and dates visible', async () => {
+    const user = userEvent.setup()
+    renderPage()
+    const dyno = within(screen.getByRole('article', { name: 'Dyno Nobel' }))
+    expect(dyno.getByText('Software Engineer')).toBeVisible()
+    expect(dyno.getByText('May 2021 – Present')).toBeVisible()
+    expect(dyno.getByText(/Build and modernize frontend applications/)).toBeVisible()
+    const toggle = dyno.getByRole('button', { name: 'Work highlights' })
+    expect(toggle).toBeVisible()
+    expect(toggle).toHaveAttribute('aria-expanded', 'false')
+    expect(screen.queryByText(/Fracture Density Model/)).not.toBeInTheDocument()
+    await user.click(toggle)
+    const dialog = screen.getByRole('dialog', { name: 'Dyno Nobel work highlights' })
+    expect(toggle).toHaveAttribute('aria-expanded', 'true')
+    const highlights = within(within(dialog).getByRole('list'))
+    expect(highlights.getAllByRole('listitem')).toHaveLength(5)
+    for (const contribution of [
+      /Fracture Density Model/,
+      /Burden Control/,
+      /forked MUI v4 and its pickers to unblock React 19/,
+      /Jenkins sharding/,
+      /AI-assisted development tooling/,
+    ]) {
+      expect(highlights.getByText(contribution)).toBeVisible()
+    }
+    await user.keyboard('{Escape}')
+    await waitFor(() => expect(dialog).not.toBeInTheDocument())
+    expect(toggle).toHaveFocus()
+    expect(toggle).toHaveAttribute('aria-expanded', 'false')
+    expect(dyno.getByText(/Build and modernize frontend applications/)).toBeVisible()
+    expect(dyno.getByText('May 2021 – Present')).toBeVisible()
+  })
+
+  it('shows source-backed RoviTracker highlights in an independent disclosure', async () => {
+    const user = userEvent.setup()
+    renderPage()
+    const rovi = within(screen.getByRole('article', { name: 'RoviTracker' }))
+    expect(rovi.getByText('Frontend Developer')).toBeVisible()
+    expect(rovi.getByText('November 2018 – March 2022')).toBeVisible()
+    expect(rovi.getByText(/Started in QA automation/)).toBeVisible()
+    expect(screen.queryByText(/Built Cypress tests/)).not.toBeInTheDocument()
+    const toggle = rovi.getByRole('button', { name: 'Work highlights' })
+    await user.click(toggle)
+    const dialog = screen.getByRole('dialog', { name: 'RoviTracker work highlights' })
+    const highlights = within(within(dialog).getByRole('list'))
+    expect(highlights.getAllByRole('listitem')).toHaveLength(6)
+    for (const contribution of [
+      /scheduled GitLab CI runs/,
+      /virtualized lists/,
+      /geofence drawing, and editable boundaries/,
+      /ticket creation, editing and resolution/,
+      /fluid-usage reports/,
+      /improved error handling with Sentry/,
+    ]) {
+      expect(highlights.getByText(contribution)).toBeVisible()
+    }
+    expect(screen.queryByText(/Fracture Density Model/)).not.toBeInTheDocument()
+    await user.click(within(dialog).getByRole('button', { name: 'Close work highlights' }))
+    await waitFor(() => expect(dialog).not.toBeInTheDocument())
+    expect(toggle).toHaveFocus()
+    expect(rovi.getByText(/Started in QA automation/)).toBeVisible()
+    expect(rovi.getByText('November 2018 – March 2022')).toBeVisible()
   })
 
   it('navigates between sections and focuses each destination', async () => {
