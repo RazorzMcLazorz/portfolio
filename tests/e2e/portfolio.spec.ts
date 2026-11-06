@@ -221,6 +221,22 @@ test('contributions combine both services with accessible source and day control
   ).toHaveAttribute('href', 'https://gitea.natelinyoungnas.com/RazorzMcLazorz')
 })
 
+test('contribution calendar fits its desktop card without horizontal scrolling', async ({
+  page,
+}) => {
+  for (const width of [1024, 1227, 1440]) {
+    await page.setViewportSize({ width, height: 900 })
+    await page.goto('/#contributions')
+    await page.evaluate(() => document.fonts.ready)
+    const calendar = page.locator('.contribution-scroll')
+    await expect(calendar).toBeVisible()
+    expect(
+      await calendar.evaluate((element) => element.scrollWidth - element.clientWidth),
+      `Calendar overflow at ${width}px`,
+    ).toBe(0)
+  }
+})
+
 test('direct route reloads, résumé asset, and downloads work', async ({ page, request }) => {
   await page.goto('/contact')
   await page.reload()

@@ -413,19 +413,21 @@ p {
 .contribution-graph {
   display: flex;
   gap: 4px;
-  width: max-content;
+  min-width: 800px;
   padding-right: 1.25rem;
 }
 .contribution-week,
 .contribution-weekdays {
   display: grid;
-  grid-template-rows: 1.25rem repeat(7, 14px);
+  grid-template-rows: 1.25rem repeat(7, 1fr);
   gap: 4px;
 }
 .contribution-week {
-  width: 14px;
+  flex: 1 1 14px;
+  min-width: 10px;
 }
 .contribution-weekdays {
+  flex-shrink: 0;
   width: 2rem;
   margin-right: 0.25rem;
 }
@@ -448,6 +450,11 @@ p {
 }
 button.contribution-day {
   cursor: pointer;
+}
+.contribution-week .contribution-day {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
 }
 .contribution-day[data-level='1'] {
   background: color-mix(in srgb, var(--accent) 25%, transparent);
