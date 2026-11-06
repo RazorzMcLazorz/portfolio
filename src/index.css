@@ -419,6 +419,7 @@ p {
 .contribution-week,
 .contribution-weekdays {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   grid-template-rows: 1.25rem repeat(7, 1fr);
   gap: 4px;
 }

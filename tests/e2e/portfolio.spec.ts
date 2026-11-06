@@ -234,6 +234,21 @@ test('contribution calendar fits its desktop card without horizontal scrolling',
       await calendar.evaluate((element) => element.scrollWidth - element.clientWidth),
       `Calendar overflow at ${width}px`,
     ).toBe(0)
+    const cells = await calendar.locator('button').evaluateAll((buttons) =>
+      buttons.map((button) => {
+        const { x, y, width, height } = button.getBoundingClientRect()
+        return { x, y, width, height }
+      }),
+    )
+    for (const cell of cells) {
+      expect(Math.abs(cell.width - cell.height), 'Day cells should be square').toBeLessThan(1)
+      expect(cell.width, 'Day cells should remain readable').toBeGreaterThanOrEqual(10)
+      for (const other of cells) {
+        if (other.x > cell.x && Math.abs(other.y - cell.y) < 1) {
+          expect(cell.x + cell.width, 'Day cells must not overlap').toBeLessThanOrEqual(other.x)
+        }
+      }
+    }
   }
 })
 
