@@ -1,9 +1,11 @@
 #nameSigned {
-  stroke-dasharray: 244;
-  stroke-dashoffset: 244;
-  animation: sign 4s ease;
-  animation-fill-mode: forwards;
-  animation-delay: 2s;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: sign 4s ease forwards paused;
+}
+
+.signature--visible #nameSigned {
+  animation-play-state: running;
 }
 
 @media (prefers-reduced-motion: reduce) {

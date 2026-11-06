@@ -191,6 +191,9 @@ p {
 .terrain-elk {
   fill: var(--terrain-wildlife);
 }
+.terrain-hooves {
+  fill: var(--terrain-trees-front);
+}
 .terrain-antlers {
   fill: none;
   stroke: var(--terrain-wildlife);
