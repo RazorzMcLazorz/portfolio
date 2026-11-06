@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Nathaniel P. Young resume</title>
+    <style>
+      @page {
+        size: letter;
+        margin: 0.35in;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      :root {
+        --slate: #535f77;
+        --ink: #303949;
+        --muted: #626c7d;
+        --rule: #dce1e8;
+      }
+      body {
+        font:
+          9.6pt/1.32 Arial,
+          sans-serif;
+        color: var(--ink);
+        margin: 0;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .resume {
+        border: 1px solid var(--rule);
+        border-radius: 24px;
+        min-height: 10.25in;
+        overflow: hidden;
+        background: white;
+      }
+      header {
+        position: relative;
+        isolation: isolate;
+        background: var(--slate);
+        color: white;
+        padding: 18px 28px 16px;
+        overflow: hidden;
+      }
+      .pattern {
+        position: absolute;
+        z-index: -1;
+        right: -15px;
+        top: -24px;
+        width: 210px;
+        height: 210px;
+        opacity: 0.22;
+        transform: rotate(-12deg);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        border-left: 8px solid #263349;
+        padding-left: 12px;
+      }
+      .pattern span {
+        background: repeating-linear-gradient(0deg, #263349 0 8px, transparent 8px 17px);
+        border: 7px solid #263349;
+      }
+      .pattern span:nth-child(2),
+      .pattern span:nth-child(3) {
+        background: repeating-linear-gradient(90deg, #263349 0 8px, transparent 8px 17px);
+      }
+      h1 {
+        font-size: 26pt;
+        letter-spacing: -0.5px;
+        margin: 0;
+        color: white;
+      }
+      .title {
+        font-size: 10pt;
+        font-weight: normal;
+        color: #e4e8f0;
+        margin: 4px 0 12px;
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+      }
+      .contact {
+        font-size: 8.5pt;
+      }
+      .portfolio {
+        display: inline-block;
+        margin-top: 9px;
+        padding: 6px 11px;
+        border: 1px solid #e4e8f0;
+        border-radius: 5px;
+        font-size: 11pt;
+        font-weight: bold;
+        color: white;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      main {
+        padding: 3px 22px 16px;
+      }
+      h2 {
+        color: var(--slate);
+        border-bottom: 1px solid var(--rule);
+        font-size: 10pt;
+        letter-spacing: 1.3px;
+        margin: 10px 0 6px;
+        padding-bottom: 4px;
+        text-transform: uppercase;
+      }
+      p {
+        margin: 0;
+      }
+      .job {
+        margin-top: 10px;
+      }
+      .heading {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+      }
+      .heading strong {
+        color: var(--ink);
+        font-size: 10pt;
+      }
+      .date {
+        white-space: nowrap;
+        font-size: 8.5pt;
+        color: var(--muted);
+        padding-top: 1px;
+      }
+      ul {
+        margin: 5px 0 0;
+        padding-left: 14px;
+      }
+      li {
+        padding-left: 2px;
+        margin-bottom: 2px;
+      }
+      li::marker {
+        color: #8795ae;
+        font-size: 8pt;
+      }
+      .skills p {
+        margin: 2px 0;
+      }
+      .education p {
+        margin: 3px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <article class="resume">
+      <header>
+        <div class="pattern" aria-hidden="true">
+          <span></span><span></span><span></span><span></span>
+        </div>
+        <h1>Nathaniel P. Young</h1>
+        <p class="title">Frontend software engineer</p>
+        <p class="contact">
+          <a href="mailto:nateyoungdev@gmail.com">nateyoungdev@gmail.com</a> &nbsp;|&nbsp;
+          801-687-3065 &nbsp;|&nbsp;
+          <a href="https://www.linkedin.com/in/nate-p-young/">LinkedIn</a> &nbsp;|&nbsp;
+          <a href="https://github.com/RazorzMcLazorz">GitHub</a>
+        </p>
+        <a class="portfolio" href="https://nateyoungdev.netlify.app/"
+          >View my projects: nateyoungdev.netlify.app</a
+        >
+      </header>
+      <main>
+        <section>
+          <h2>Summary</h2>
+          <p>
+            Frontend software engineer with 8+ years of experience building React and TypeScript
+            applications for reporting, interactive maps, and 2D and 3D engineering tools.
+          </p>
+        </section>
+        <section>
+          <h2>Experience</h2>
+          <div class="job">
+            <div class="heading">
+              <strong>Dyno Nobel | Software Engineer</strong
+              ><span class="date">May 2021 to present</span>
+            </div>
+            <ul>
+              <li>
+                Build frontend applications for blast reporting, analysis, and design. Built shot
+                reporting workflows, a CSV editor, and the Fracture Density Model end to end.
+              </li>
+              <li>
+                Developed 2D and 3D Burden Control tools with hole previews, navigation,
+                measurement, PDF previews, and boretrack support.
+              </li>
+              <li>
+                Led the migration from Flow to TypeScript across core application areas and migrated
+                Enzyme tests to React Testing Library.
+              </li>
+              <li>
+                Introduced Storybook, expanded unit test coverage, improved Jenkins test sharding,
+                and helped establish Playwright testing.
+              </li>
+              <li>
+                Forked MUI v4 and its pickers to support React 19. Built internal code review and
+                onboarding tools.
+              </li>
+            </ul>
+          </div>
+          <div class="job">
+            <div class="heading">
+              <strong>RoviTracker | Frontend Developer</strong
+              ><span class="date">November 2018 to March 2022</span>
+            </div>
+            <ul>
+              <li>
+                Advanced from QA automation to frontend development on an equipment and fleet
+                management platform.
+              </li>
+              <li>
+                Built responsive React and TypeScript interfaces for inventory, equipment profiles,
+                maintenance, and reporting.
+              </li>
+              <li>
+                Developed Google Maps tools for asset search, filtering, geofence drawing, and
+                boundary editing.
+              </li>
+              <li>
+                Created Cypress tests for registration, login, and onboarding on desktop and mobile,
+                with scheduled runs in GitLab CI.
+              </li>
+            </ul>
+          </div>
+        </section>
+        <section>
+          <h2>Projects</h2>
+          <div class="job">
+            <div class="heading">
+              <strong>Wild Haven</strong
+              ><a class="date" href="https://wild-haven.app">wild-haven.app</a>
+            </div>
+            <ul>
+              <li>
+                Rewrote a legacy PHP/MySQL website in React and TypeScript and maintain the
+                application.
+              </li>
+              <li>
+                Built character profiles, inventories, quests, combat, community forums, messaging,
+                and artist marketplace tools.
+              </li>
+              <li>
+                Built Bun-based Appwrite Functions for gameplay and community operations, with
+                server-side authorization and staff permissions.
+              </li>
+            </ul>
+          </div>
+        </section>
+        <section class="skills">
+          <h2>Technical skills</h2>
+          <p>
+            <strong>Frontend and UI:</strong> React, TypeScript, JavaScript, Redux, Zustand, HTML,
+            CSS/SCSS, Material UI, shadcn/ui, Tailwind CSS
+          </p>
+          <p>
+            <strong>3D and data visualization:</strong> Three.js, React Three Fiber, Mapbox, Google
+            Maps API, Leaflet, Recharts
+          </p>
+          <p>
+            <strong>Testing and development:</strong> Vitest, React Testing Library, Cypress,
+            Playwright, Storybook, Vite, Git
+          </p>
+          <p>
+            <strong>Backend and CI:</strong> Bun, Node.js, Appwrite, REST APIs, Jenkins, GitLab CI
+          </p>
+        </section>
+        <section class="education">
+          <h2>Education</h2>
+          <p>
+            <strong>Utah Valley University</strong> | Bachelor's degree in Computer Science, May
+            2026. Full-stack development focus.
+          </p>
+          <p>
+            <strong>Bottega</strong> | Software Engineering certificate, 2018. JavaScript and Python
+            boot camp.
+          </p>
+        </section>
+        <section>
+          <h2>Interests</h2>
+          <p>3D modeling, 3D printing, Dungeons &amp; Dragons, and video gaming</p>
+        </section>
+      </main>
+    </article>
+  </body>
+</html>
